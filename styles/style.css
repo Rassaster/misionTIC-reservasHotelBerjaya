@@ -14,7 +14,7 @@ header {
   position: relative;
   width: 100vw;
   height: calc(100vw * (650 / 1366));
-  background-image: url("../assets/berjayaBanner.jpeg");
+  background-image: url("../assets/berjayaBanner.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -75,3 +75,19 @@ header {
   width: calc(100vw * (200 / 1366));
 }
 
+footer {
+  width: 100vw;
+  height: calc(100vw * (200 / 1366));
+  display: flex;
+  padding-left: calc(100vw * (60 / 1366));
+  padding-right: calc(100vw * (60 / 1366));
+  background-color: #14274A;
+}
+footer div {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid red;
+  /* width: 100px;
+  height: 100px; */
+  flex-grow: 1;
+}
