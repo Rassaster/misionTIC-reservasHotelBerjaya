@@ -9,6 +9,9 @@
 a {
   text-decoration: none;
 }
+ul {
+  list-style: none;
+}
 
 header {
   position: relative;
@@ -78,16 +81,72 @@ header {
 footer {
   width: 100vw;
   height: calc(100vw * (200 / 1366));
+  height: fit-content;
   display: flex;
-  padding-left: calc(100vw * (60 / 1366));
-  padding-right: calc(100vw * (60 / 1366));
+  align-items: baseline;
+  padding: calc(100vw * (50 / 1366));
   background-color: #14274A;
+  clip-path: polygon(50% 0, 53% 20%, 100% 20%, 100% 100%, 0 100%, 0 20%, 47% 20%);
+
 }
-footer div {
+footer > div {
+  height: fit-content;
+  margin-top: calc(100vw * (20 / 1366));
+  padding: calc(100vw * (30 / 1366));
   display: flex;
   flex-direction: column;
-  border: 1px solid red;
-  /* width: 100px;
-  height: 100px; */
   flex-grow: 1;
+}
+.berjayaInfoCtn img {
+  width: calc(100vw * (100 / 1366));
+  height: calc(100vw * (100 / 1366));
+}
+.berjayaInfoCtn p {
+  font-size: calc(100vw * (14 / 1366));
+  margin-top: calc(100vw * (5 / 1366));
+}
+
+.contactUsCtn ul li a {
+  line-height: calc(100vw * (30 / 1366));
+  font-weight: bold;
+}
+.socialMediaCtn ul li a {
+  line-height: calc(100vw * (30 / 1366));
+  font-weight: bold;
+}
+.newsLetterCtn form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.newsLetterCtn form label {
+  width: 100%;
+}
+.newsletterInputsCtn {
+  width: 100%;
+  margin-top: calc(100vw * (10 / 1366));
+}
+.newsLetterCtn form input[type=text] {
+  width: 73%;
+  height: calc(100vw * (50 / 1366));
+  margin: unset;
+  border: none;
+  padding-left: calc(100vw * (20 / 1366));
+  box-shadow: none;
+  outline: none;
+  color: #FFF;
+  background-color: #14274A;
+  border: 1px solid #E0B973;
+}
+.newsLetterCtn form input[type=text]::placeholder {
+  color: #FFF;
+}
+.newsLetterCtn form input[type=submit] {
+  height: calc(100vw * (50 / 1366));
+  width: calc(100vw * (50 / 1366));
+  margin-left: calc(100vw * (-5 / 1366));
+  background-color: #E0B973;
+  border: none;
+  box-shadow: none;
+  outline: none;
 }
