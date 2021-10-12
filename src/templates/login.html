@@ -1,0 +1,50 @@
+{% extends "index.html" %}
+{% block cuerpo %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login Berjaya</title>
+	<link rel="stylesheet" type="text/css" href='{{ url_for("static", filename="css/style.css") }}'>
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div>
+	<img class="wave" src='{{ url_for("static", filename="img/wave.png") }}'>
+	<div class="container">
+		<div class="img">
+			<img src='{{ url_for("static", filename="img/bg.svg") }}'>
+		</div>
+		<div class="login-content">
+			<form action="login.html">
+				<img src='{{ url_for("static", filename="img/avatar.svg") }}'>
+				<h2 class="title">Welcome</h2>
+           		<div class="input-div one">
+           		   <div class="i">
+           		   		<i class="fas fa-user"></i>
+           		   </div>
+           		   <div class="div">
+           		   		<h5>{{ form.userId.label }}</h5>
+           		   		<div class="input">{{ form.userId(size=40,minlength=8,maxlength=40) }}</div>
+           		   </div>
+           		</div>
+           		<div class="input-div pass">
+           		   <div class="i"> 
+           		    	<i class="fas fa-lock"></i>
+           		   </div>
+           		   <div class="div">
+           		    	<h5>{{ form.userId.label }}</h5>
+           		    	<div class="input">{{ form.clave(size=40,minlength=8,maxlength=40) }}</div>
+            	   </div>
+            	</div>
+            	<a href="#">Forgot Password?</a>
+            	<div class="btn">{{ form.enviar() }}</div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src='{{ url_for("static", filename="jsJesus/main.js") }}'></script>
+</div>
+</body>
+</html>
+{% endblock %}

@@ -16,7 +16,7 @@ def home():
 def login():
     if request.method=='GET':
         frm = Login()
-        return render_template('login_form.html', form=frm, titulo='login')
+        return render_template('login.html', form=frm, titulo='login')
     else:
         usr = escape(request.form['userId'])
         cla = escape(request.form['clave'])
@@ -31,4 +31,4 @@ def login():
         return sal
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=8000)
