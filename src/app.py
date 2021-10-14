@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from formularios import Login
+from formularios import Login, Registro
 from markupsafe import escape
 import os
 
@@ -30,5 +30,26 @@ def login():
         sal += '<a href="/">Back home</a>'
         return sal
 
+@app.route('/registro/', methods=['GET','POST'])
+def registro():
+    if request.method=='GET':
+        # Se debe crear una instancia del formulario
+        frm = Registro()
+        return render_template('registro.html',form=frm,titulo='Registro de usuarios')
+    # else:
+    #     # recuperar los datos del formulario
+    #     nom = escape(request.form["nombre"]) # Dificultar la inyección de código
+    #     ape = escape(request.form["apellido"]) # Dificultar la inyección de código
+    #     # Validar los datos del lado del servidor
+    #     sal = ''
+    #     if len(nom.strip())<1:
+    #         sal += 'Los nombres son requeridos' 
+    #     if len(ape.strip())<1:
+    #         sal += 'Los apellidos son requeridos' 
+    #     if sal=='':
+    #         sal = 'Los datos son válidos, deberíamos consultar a la BD'
+    #     sal += '<a href="/">Volver al inicio</a>'
+    #     return sal
+
 if __name__ == '__main__':
-    app.run(port=8000)
+    app.run(port=8000, debug=True)
