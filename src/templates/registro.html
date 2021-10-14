@@ -1,0 +1,30 @@
+{% extends "index.html" %}
+{% block cuerpo %}
+<!-- <head>
+	<title>Registro Berjaya</title>
+	<link rel="stylesheet" type="text/css" href='{{ url_for("static", filename="css/registro.css") }}'>
+</head> -->
+<div class="body"> 
+    <form class="registroForm" action="/registro/" method="post">
+        <h2>Registro</h2>
+        <p>
+            <div class="floatLabel">{{ form.email.label }}</div>
+            <div>{{ form.email(size=100, minlength=3, maxlength=100) }}</div>
+        </p>
+        <p>
+            <div class="floatLabel">{{ form.passn.label }}</div>
+            <div>{{ form.passn(size=100, minlength=8, maxlength=40) }}</div>
+            <span>Ingrese clave con mas de 8 caracteres</span>
+        </p>
+        <p>
+            <div class="floatLabel">{{ form.passv.label }}</div>
+            <div>{{ form.passv(size=100, minlength=8, maxlength=40) }}</div>
+            <span>Su clave no coincide</span>
+        </p>
+        <p>
+            <div>{{ form.enviar() }}</div>
+        </p>
+    </form>
+    <script type="text/javascript" src='{{ url_for("static", filename="js/registro.js") }}'></script>
+</div>
+{% endblock %}
