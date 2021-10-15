@@ -150,3 +150,7 @@ footer > div {
   box-shadow: none;
   outline: none;
 }
+
+.input input{
+  color: black;
+}
