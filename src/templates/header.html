@@ -1,37 +1,11 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/styles/style.css">
+  <link rel="stylesheet" href='{{ url_for("static", filename="styles/style.css") }}'>
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-  <title>Berjaya Header</title>
+  <title>Berjaya Header-Footer</title>
 </head>
-<body>
-  <header>
-    <div class="navCtn">
-      <a href="/" class="logo">
-        <img src="/assets/logoBerjaya.svg" alt="Logo Berjaya Hotel">
-      </a>
-      <nav class="mainNav">
-        <ul>
-          <li><a href="#">Inicio</a></li>
-          <li><a href="#">Instalaciones</a></li>
-          <li><a href="#">Habitaciones</a></li>
-          <li><a href="#">Contactanos</a></li>
-        </ul>
-      </nav>
-    </div>
-    <div class="welcomeCtn">
-      <p class="welcomeTitle">BIENVENIDO A <span>BERJAYA</span> HOTELS</p>
-      <p class="welcomeText">Reserva tu estadía y disfruta de Berjaya. <br/> Deleitese en la comodidad de lo suntuoso.</p>
-    </div>
-    <div class="reservationCtn">
-      <img src="/assets/botonReservas.svg" alt="Reservar">
-    </div>
-  </header>
-</body>
-</html>
