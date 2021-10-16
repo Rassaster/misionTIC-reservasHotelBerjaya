@@ -34,37 +34,10 @@
     </div>
   </header>
   {% block cuerpo %}{% endblock %}
-  <footer>
-    <div class="berjayaInfoCtn">
+
+  {% extends 'footer.html' %}
+    {% block imageFooter %}
       <img src='{{ url_for("static", filename="assets/logoBerjayaFooter.svg") }}' alt="Berjaya Hotels">
-      <p>Kuala Lumpur</p>
-      <p>1 Jalan Imbi</p>
-      <p>55100 Kuala Lumpur</p>
-      <p>Malaysia</p>
-    </div>
-    <div class="contactUsCtn">
-      <ul>
-        <li><a href="#">Sobre Nosotros</a></li>
-        <li><a href="#">Contacto</a></li>
-        <li><a href="#">Términos y Condiciones</a></li>
-      </ul>
-    </div>
-    <div class="socialMediaCtn">
-      <ul>
-        <li><a href="#">Facebook</a></li>
-        <li><a href="#">Twitter</a></li>
-        <li><a href="#">Instagram</a></li>
-      </ul>
-    </div>
-    <div class="newsLetterCtn">
-      <form action="" method="post">
-        <label for="newsletter">Suscríbete a nuestro boletín de noticias</label>
-        <div class="newsletterInputsCtn">
-          <input type="text" name="newsletter" id="newsletter" placeholder="Email">
-          <input type="submit" value="OK" disabled>
-        </div>
-    </form>
-    </div>
-  </footer>
+  {% endblock %}
 </body>
 </html>
