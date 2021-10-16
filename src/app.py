@@ -7,12 +7,12 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 @app.route('/')
-@app.route('/home')
-@app.route('/index')
+@app.route('/home/')
+@app.route('/index/')
 def home():
     return render_template('index.html')
 
-@app.route('/login', methods=['GET','POST'])
+@app.route('/login/', methods=['GET','POST'])
 def login():
     if request.method=='GET':
         frm = Login()
@@ -30,7 +30,7 @@ def login():
         sal += '<a href="/">Back home</a>'
         return sal
 
-@app.route('/registro', methods=['GET','POST'])
+@app.route('/registro/', methods=['GET','POST'])
 def registro():
     if request.method=='GET':
         # Se debe crear una instancia del formulario
