@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-{% include 'header.html' %}
-<body>
-  {% include 'navbar.html' %}
+{% extends 'base.html' %}
 
-  {% block site %}{% endblock %}
+{% block title %}Home{% endblock %}
 
-  {% extends 'footer.html' %}
-    {% block imageFooter %}
-      <img src='{{ url_for("static", filename="assets/logoBerjayaFooter.svg") }}' alt="Berjaya Hotels">
-  {% endblock %}
-</body>
-</html>
+{% block content %}{% endblock %}
+
+{% block imageFooter %}
+  <img src='{{ url_for("static", filename="assets/logoBerjayaFooter.svg") }}' alt="Berjaya Hotels">
+{% endblock %}
