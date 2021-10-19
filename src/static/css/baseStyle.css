@@ -1,10 +1,10 @@
 * {
-  margin: unset;
-  padding: unset;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
   color: white;
   overflow-x: hidden;
-  font-family: 'Montserrat', sans-serif;;
+  font-family: 'Montserrat', sans-serif;
 }
 a {
   text-decoration: none;
@@ -49,7 +49,6 @@ header {
   text-align: center;
   font-weight: bold;
 }
-
 .mainNav ul li a:hover {
   text-decoration: underline;
 }
@@ -151,6 +150,26 @@ footer > div {
   outline: none;
 }
 
-.input input{
+.contentTxt {
+  position: relative;
+  width: 1000px;
+  margin: 50px;
+  display: flex;
+  border-left: 1px solid black;
+}
+
+.contentTxt > .texto {
+  margin-top: 50px;
+}
+
+.contentTxt > div > h1 {
+  margin: 20px;
+  padding: 20px;
+  color: black;
+}
+
+.contentTxt > div > .texto {
+  margin: 20px;
+  padding: 20px;
   color: black;
 }
