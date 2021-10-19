@@ -5,19 +5,20 @@
 	<link rel="stylesheet" type="text/css" href='{{ url_for("static", filename="css/style.css") }}'>
 	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
-	{% endblock %}
+{% endblock %}
+
 {% block title %}Login{% endblock %}
 
 {% block content %}
 	<div>
-		<img class="wave" src='{{ url_for("static", filename="img/wave.png") }}'>
+		<img class="wave" src='{{ url_for("static", filename="assets/img/wave.png") }}'>
 		<div class="container">
 			<div class="img">
-				<img src='{{ url_for("static", filename="img/bg.svg") }}'>
+				<img src='{{ url_for("static", filename="assets/img/bg.svg") }}'>
 			</div>
 			<div class="login-content">
 				<form action="login.html">
-					<img src='{{ url_for("static", filename="img/avatar.svg") }}'>
+					<img src='{{ url_for("static", filename="assets/img/avatar.svg") }}'>
 					<h2 class="title">Welcome</h2>
 					<div class="input-div one">
 						<div class="i">
@@ -42,6 +43,6 @@
 				</form>
 			</div>
 		</div>
-		<script type="text/javascript" src='{{ url_for("static", filename="jsJesus/main.js") }}'></script>
+		<script type="text/javascript" src='{{ url_for("static", filename="js/main.js") }}'></script>
 	</div>
 {% endblock %}
