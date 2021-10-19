@@ -153,11 +153,9 @@ footer > div {
 .contentTxt {
   position: relative;
   width: 1000px;
-  height: 400px;
   margin: 50px;
   display: flex;
-  padding: 50px;
-  color: black;
+  border-left: 1px solid black;
 }
 
 .contentTxt > .texto {
@@ -165,9 +163,13 @@ footer > div {
 }
 
 .contentTxt > div > h1 {
+  margin: 20px;
+  padding: 20px;
   color: black;
 }
 
 .contentTxt > div > .texto {
+  margin: 20px;
+  padding: 20px;
   color: black;
 }
