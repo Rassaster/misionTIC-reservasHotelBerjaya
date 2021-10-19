@@ -2,7 +2,7 @@
   margin: unset;
   padding: unset;
   box-sizing: border-box;
-  /* color: white; */
+  color: white;
   overflow-x: hidden;
   font-family: 'Montserrat', sans-serif;;
 }
@@ -46,12 +46,9 @@ header {
 .mainNav ul li a {
   width: 100%;
   height: 100%;
-  text-align: center;.contentTxt {
-    position: absolute;
-  }
+  text-align: center;
   font-weight: bold;
 }
-
 .mainNav ul li a:hover {
   text-decoration: underline;
 }
@@ -160,9 +157,17 @@ footer > div {
   margin: 50px;
   display: flex;
   padding: 50px;
-  fill: black;
+  color: black;
 }
 
 .contentTxt > .texto {
   margin-top: 50px;
+}
+
+.contentTxt > div > h1 {
+  color: black;
+}
+
+.contentTxt > div > .texto {
+  color: black;
 }
