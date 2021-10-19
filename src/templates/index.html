@@ -2,7 +2,32 @@
 
 {% block title %}Home{% endblock %}
 
-{% block content %}{% endblock %}
+{% block content %}
+  <div>
+    <div class="contentTxt">
+      <div>
+        <h1>
+          Berjaya Times Square Hotel, Kuala Lumpur
+        </h1>
+        <div class="texto">
+          <p>Situado idealmente justo en el corazón del centro de entretenimiento más animado de la ciudad y la mayoría de los distritos comerciales.</p>
+        </div>
+      </div>      
+      <img src='{{ url_for("static", filename="assets/habita.svg") }}' alt="habpìc" height="300px" width="433px" />
+    </div>
+    <div class="contentTxt">
+      <div>
+        <h1>
+          Deja las preocupaciones a nuestra recreación
+        </h1>
+        <p class="texto">
+          Todo en diversión, relajación y vinculación, ofrecemos actividades atractivas y opciones de entretenimiento para huéspedes de todas las edades.
+        </p>
+      </div>      
+      <img src='{{ url_for("static", filename="assets/piscina.svg") }}' alt="piscpic" height="300px" width="433px"/>
+    </div>
+  </div>
+{% endblock %}
 
 {% block imageFooter %}
   <img src='{{ url_for("static", filename="assets/logoBerjayaFooter.svg") }}' alt="Berjaya Hotels">
