@@ -49,7 +49,6 @@ header {
   text-align: center;
   font-weight: bold;
 }
-
 .mainNav ul li a:hover {
   text-decoration: underline;
 }
@@ -149,4 +148,28 @@ footer > div {
   border: none;
   box-shadow: none;
   outline: none;
+}
+
+.contentTxt {
+  position: relative;
+  width: 1000px;
+  margin: 50px;
+  display: flex;
+  border-left: 1px solid black;
+}
+
+.contentTxt > .texto {
+  margin-top: 50px;
+}
+
+.contentTxt > div > h1 {
+  margin: 20px;
+  padding: 20px;
+  color: black;
+}
+
+.contentTxt > div > .texto {
+  margin: 20px;
+  padding: 20px;
+  color: black;
 }
