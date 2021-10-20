@@ -51,9 +51,9 @@ def registro():
     #     sal += '<a href="/">Volver al inicio</a>'
     #     return sal
 
-# @app.route('/habitaciones/')
-# def habitaciones():
-#     return render_template('habitaciones.html', form=frm, titulo='Habitaciones')
+@app.route('/habitaciones/')
+def habitaciones():
+    return render_template('habitaciones.html', titulo='Habitaciones')
 
 if __name__ == '__main__':
     app.run()
