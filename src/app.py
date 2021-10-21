@@ -74,5 +74,13 @@ def registro():
 def habitaciones():
     return render_template('habitaciones.html', titulo='Habitaciones')
 
+@app.route('/contactanos/')
+def contactanos():
+    return render_template('contactanos.html')
+
+@app.route('/instalaciones/')
+def instalaciones():
+    return render_template('instalaciones.html')
+
 if __name__ == '__main__':
     app.run()
