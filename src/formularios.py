@@ -4,9 +4,10 @@ from wtforms.fields.html5 import EmailField
 from wtforms.validators import InputRequired, EqualTo
 
 class Login(FlaskForm):
-    userId = TextField('Usuario *', validators = [InputRequired(message = 'El usuario es requerido')])
-    clave = PasswordField('Contraseña *', validators = [InputRequired(message = 'La clave es requerida')])
-    enviar = SubmitField('Entrar')   
+	userId = TextField('Usuario *', validators = [InputRequired(message = 'El usuario es requerido')])
+	clave = PasswordField('Contraseña *', validators = [InputRequired(message = 'La clave es requerida')])
+	logIn = SubmitField('Ingresar')
+	signUp = SubmitField('Registarse')
 
 class Registro(FlaskForm):    
     email = EmailField('E-Mail *', validators = [InputRequired(message='El email es requerido')])
