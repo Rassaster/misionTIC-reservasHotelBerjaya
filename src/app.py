@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, flash
-from formularios import Login, Registro
+from formularios import Login, Registro, NuevoUsr
 from utils import pass_valido
 from markupsafe import escape
 import os
@@ -37,7 +37,7 @@ def login():
 
 @app.route('/nuevoUsr/', methods = ['GET', 'POST'])
 def nuevoUsr():
-    frm = Registro()
+    frm = NuevoUsr()
     if request.method=='GET':
         return render_template('nuevoUsr.html', form=frm, titulo='Registro de usuarios')
     else:
@@ -58,12 +58,10 @@ def nuevoUsr():
         if clave1 != clave2:
             flash('ERROR: La clave y la verificación no coinciden')
             swerror = True
-        print(swerror)
         if not swerror:           
             sql = "INSERT INTO credenciales(usuario, contrasena) VALUES (?, ?)"
             pwd = generate_password_hash(clave1)
             res = accion(sql,(email, pwd))
-            print(res)
             if res!=0:
                 flash('INFO: Datos almacenados con exito')
             else:
