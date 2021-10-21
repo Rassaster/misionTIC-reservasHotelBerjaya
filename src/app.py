@@ -58,10 +58,12 @@ def registro():
         if clave1 != clave2:
             flash('ERROR: La clave y la verificación no coinciden')
             swerror = True
+        print(swerror)
         if not swerror:           
-            sql = "INSERT INTO credenciales(correo, clave) VALUES (?, ?)"
+            sql = "INSERT INTO credenciales(usuario, contrasena) VALUES (?, ?)"
             pwd = generate_password_hash(clave1)
             res = accion(sql,(email, pwd))
+            print(res)
             if res!=0:
                 flash('INFO: Datos almacenados con exito')
             else:

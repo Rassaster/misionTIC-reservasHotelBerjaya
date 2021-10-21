@@ -1,11 +1,5 @@
-@import "compass/css3";
-
-@button: rgba(148,186,101,0.7);
-
-@test: #14274A;
 
 .body {
-  background: #384047;
   font-family: sans-serif;
   font-size: 10px
 }
@@ -16,46 +10,54 @@
   margin: 50px auto 0;
   box-shadow: 0 0 1em #222;
   border-radius: 2px;
-  h2 {
+}
+.registroForm > h2 {
+    background: #E0B973;
     margin:0 0 50px 0;
     padding:10px;
     text-align:center;
     font-size:30px;
     color:darken(#e5e5e5, 50%);
     border-bottom:solid 1px #e5e5e5;
+    color:black;
   }
-  p {
+.registroForm > p {
     margin: 0 0 3em 0;
     position: relative;
+    color:black;
   }
-  input {
+.registroForm > input {
     display: block;
     box-sizing: border-box;
     width: 100%;
     outline: none;
     margin:0;
+    color:black;
   }
-  input[type="text"],
+.registroForm > input[type="text"],
   input[type="password"] {
     background: #fff;
     border: 1px solid #dbdbdb;
     font-size: 1.6em;
     padding: .8em .5em;
     border-radius: 2px;
+    color:black;
   }
-  input[type="text"]:focus,
+.registroForm > input[type="text"]:focus,
   input[type="password"]:focus {
-    background: #fff
+    background: #fff;
+    color:black;
   }
-  span {
+.registroForm > span {
     display:block;
     background: #F9A5A5;
     padding: 2px 5px;
     color: #666;
+    color:black;
   }
-  input[type="submit"] {
-    background: @button;
-    box-shadow: 0 3px 0 0 darken(@button, 10%);
+.registroForm > input[type="submit"] {
+    background: rgba(148,186,101,0.7);
+    box-shadow: 0 3px 0 0 darken(rgba(148,186,101,0.7), 10%);
     border-radius: 2px;
     border: none;
     color: #fff;
@@ -68,14 +70,11 @@
     padding: .8em 0;
     text-shadow: 0 1px #68B25B;
   }
-  input[type="submit"]:hover {
-    background: rgb(18, 41, 173);
-    text-shadow:0 1px 3px darken(@button, 30%);
+.registroForm > input[type="submit"]:hover {
+    background: #14274A;
+    text-shadow:0 1px 3px darken(rgba(148, 186, 101, 0.7), 30%);
   }
-  input[type="submit"]:hover {
-    
-  }
-  label{
+.registroForm > label{
     position: absolute;
     left: 8px;
     top: 12px;
@@ -85,11 +84,11 @@
     padding: 4px 10px;
     font-weight: 400;
     background-color: rgba(255,255,255,0);
-    @include transition(color .3s, top .3s, background-color .8s);
-    &.floatLabel{
+  }
+.registroForm transition(color .3s, top .3s, background-color .8s);
+.registroForm > .floatLabel{
       top: -11px;
       background-color: rgba(255,255,255,0.8);
       font-size: 14px;
-    }
-	} 
-}
+      color: black;
+} 

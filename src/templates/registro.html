@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 
+{% block headCustom %}
+	{{ super() }}
+	<link rel="stylesheet" type="text/css" href='{{ url_for("static", filename="css/registro.css") }}'>
+{% endblock %}
+
 {% block title %}Registro{% endblock %}
 
 {% block content %}
