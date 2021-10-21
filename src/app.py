@@ -35,11 +35,11 @@ def login():
     #     sal += '<a href="/">Back home</a>'
     #     return sal
 
-@app.route('/registro/', methods = ['GET', 'POST'])
-def registro():
+@app.route('/nuevoUsr/', methods = ['GET', 'POST'])
+def nuevoUsr():
     frm = Registro()
     if request.method=='GET':
-        return render_template('registro.html', form=frm, titulo='Registro de usuarios')
+        return render_template('nuevoUsr.html', form=frm, titulo='Registro de usuarios')
     else:
         email = escape(request.form['email'])
         clave1 = escape(request.form['passn'])
@@ -68,7 +68,11 @@ def registro():
                 flash('INFO: Datos almacenados con exito')
             else:
                 flash('ERROR: Por favor reintente')
-        return render_template('registro.html', form=frm, titulo='Registro de datos')
+        return render_template('nuevoUsr.html', form=frm, titulo='Registro de datos')
+
+@app.route('/registro/')
+def registro():
+    return render_template('registro.html', titulo='Habitaciones')
 
 @app.route('/habitaciones/')
 def habitaciones():
