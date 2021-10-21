@@ -22,10 +22,9 @@
 				</a>
 				<nav class="mainNav">
 					<ul>
-						<li><a href="/">Inicio</a></li>
-						<li><a href="#">Instalaciones</a></li>
-						<li><a href="/habitaciones/">Habitaciones</a></li>
-						<li><a href="#">Contactanos</a></li>
+						<li><a href="{{ url_for('instalaciones') }}">Instalaciones</a></li>
+						<li><a href="{{ url_for('habitaciones') }}">Habitaciones</a></li>
+						<li><a href="{{ url_for('contactanos') }}">Contactanos</a></li>
 					</ul>
 				</nav>
 			</div>
