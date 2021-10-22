@@ -1,5 +1,5 @@
 import sqlite3
-DB_URL = 'bd/test.db'
+DB_URL = 'bd/test2.db'
 
 def accion(query) -> int:
 # def accion(email, clave1) -> int:
