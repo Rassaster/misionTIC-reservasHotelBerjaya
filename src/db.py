@@ -1,22 +1,15 @@
 import sqlite3
 DB_URL = 'bd/test2.db'
 
-def accion(query) -> int:
-# def accion(email, clave1) -> int:
+def accion(sql, data) -> int:
 	""" Se encarga de ejecutar una consulta de accion (INSERT, DELETE, UPDATE) """
 	try:
-		# print(f'email:{email}, clave1:{clave1}')
 		with sqlite3.connect(DB_URL) as con:
-			print(f'query:{query}')
 			cur = con.cursor()
-			sal = cur.execute(query).rowcount
-			# sal = (cur.execute("INSERT INTO credenciales(usuario, contrasena) VALUES (?, ?)", (email, clave1))).rowcount
-			# sal = (cur.execute("INSERT INTO credenciales(usuario, pass) VALUES (?, ?)", (email, clave1))).rowcount
-		if sal != 0:
-			print(f'sal:{sal}')
-			con.commit()
+			sal = cur.execute(sql, data).rowcount
+			if sal != 0:
+				con.commit()
 	except Exception as ex:
-		print(f'fail: {ex}')
 		sal = 0
 	return sal
 

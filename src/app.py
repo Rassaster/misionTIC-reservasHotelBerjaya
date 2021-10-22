@@ -16,15 +16,31 @@ app.secret_key = os.urandom(24)
 def home():
     return render_template('index.html')
 
+
+    # if form.validate_on_submit():
+    #     if form.save.data:  #  Save button is clicked
+    #         #Save
+    #         flash('You click the "Save" button.')
+    #     elif form.publish.data:  #  Publish button is clicked
+    #         #  submit
+    #         flash('You click the "Publish" button.')
+    #     return redirect(url_for('index'))
+
 @app.route('/login/', methods=['GET','POST'])
 def login():
     frm = Login()
     if request.method == 'GET':
         return render_template('login.html', form=frm, titulo='login')
     else:
-        if frm.signUp():
-            return redirect('/nuevoUsr/')
-        else:
+        if frm.validate_on_submit():
+            if frm.logIn.data:  #  Save button is clicked
+                #Save
+                flash('You click the "logIn" button.')
+                return redirect('/nuevoUsr/')
+            return render_template('login.html', form=frm, titulo='login')
+        elif frm.signUp.data:  #  Publish button is clicked
+        #  submit
+            flash('You click the "signUp" button.')
             usr = escape(frm.userId.data.strip())
             cla = escape(frm.clave.data.strip())
             sql = f'SELECT usuario, contrasena FROM credenciales WHERE usuario="{usr}"'
@@ -62,16 +78,11 @@ def nuevoUsr():
         elif clave1 != clave2:
             flash('ERROR: La clave y la verificación no coinciden')
         else:
-            # sql = f"INSERT INTO credenciales (usuario, contrasena) VALUES ('{email}', '{clave1}')"
-            sql = f"INSERT INTO fullTable (usuario, contrasena) VALUES ('{email}', '{clave1}')"
+            sql = f"INSERT INTO fullTable (usuario, contrasena) VALUES (?, ?)"
             pwd = generate_password_hash(clave1)
-            # res = accion(sql,(email, pwd))
-            # res = accion(sql)
-            res = accion(sql)
+            res = accion(sql,(email, pwd))
             if res != 0:
                 flash('INFO: Datos almacenados con exito')
-                # res = seleccion("SELECT * FROM credenciales")
-                # flash(res)
             else:
                 flash('ERROR: Por favor reintente')
         return render_template('nuevoUsr.html', form=frm, titulo='Registro de datos')
