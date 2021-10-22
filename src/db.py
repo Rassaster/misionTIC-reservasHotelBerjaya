@@ -1,24 +1,32 @@
 import sqlite3
-URL_DB = 'berjaya.db'
+DB_URL = '../bd/berjaya.db'
 
-def seleccion(sql) -> list:
-    """ Ejecuta una consulta de selección sobre la base de datos """
-    try:
-        with sqlite3.connect(URL_DB) as con:
-            cur = con.cursor()
-            res = cur.execute(sql).fetchall()
-    except Exception:
-        res = None
-    return res
+# def accion(query) -> int:
+def accion(email, clave1) -> int:
+	""" Se encarga de ejecutar una consulta de accion (INSERT, DELETE, UPDATE) """
+	# print(f'query:{query}')
+	print(f'email:{email}, clave1:{clave1}')
+	try:
+		print("flax2")
+		with sqlite3.connect(DB_URL) as con:
+			cur = con.cursor()
+			# sal = cur.execute(query).rowcount
+			sal = (cur.execute("INSERT INTO credenciales(usuario, contrasena) VALUES (?, ?)", (email, clave1))).rowcount
+			print('sal:{sal}')
+		if sal!=0:
+			print('check')
+			con.commit()
+	except Exception as ex:
+		print(f'fail: {ex}')
+		sal = 0
+	return sal
 
-def accion(sql, datos) -> int:
-    """ Ejecuta una consulta de acción sobre la base de datos """
-    try:
-        with sqlite3.connect(URL_DB) as con:
-            cur = con.cursor()
-            res = cur.execute(sql,datos).rowcount
-            if res!=0:
-                con.commit()
-    except Exception:
-        res = 0
-    return res
+def seleccion(query) -> list:
+	""" Se encarga de ejecutar una consulta de selección (SELECT) """
+	try:
+		with sqlite3.connect(DB_URL) as con:
+			cur = con.cursor()
+			sal = cur.execute(query).fetchall()
+	except Exception as ex:
+		sal = []
+	return sal

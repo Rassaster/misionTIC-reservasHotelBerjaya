@@ -67,10 +67,13 @@ def nuevoUsr():
             flash('ERROR: La clave y la verificación no coinciden')
             print("flag4")
         else:
+            flash('Hello')
             print("flag5")
-            sql = "INSERT INTO credenciales(usuario, contrasena) VALUES (?, ?)"
+            sql = "INSERT INTO credenciales(usuario, contrasena) VALUES (?, ?)", (email, clave1)
             pwd = generate_password_hash(clave1)
-            res = accion(sql,(email, pwd))
+            # res = accion(sql,(email, pwd))
+            # res = accion(sql)
+            res = accion(email, clave1)
             if res!=0:
                 flash('INFO: Datos almacenados con exito')
             else:
