@@ -13,7 +13,8 @@ class Registro(FlaskForm):
     email = EmailField('E-Mail *', validators = [InputRequired(message='El email es requerido')])
     passn = PasswordField('Password *', validators = [InputRequired(message='La clave es requerida')])
     passv = PasswordField('Verifique *', validators = [InputRequired(message='La verificación de clave es requerida'), EqualTo(passn,'La nueva clave y su verificación no corresponden')])
-    enviar = SubmitField('Ingresar')
+    logIn = SubmitField('Ingresar')
+    signUp = SubmitField('Registrarse')
 
 class NuevoUsr(FlaskForm):    
     email = EmailField('E-Mail *', validators = [InputRequired(message='El email es requerido')])

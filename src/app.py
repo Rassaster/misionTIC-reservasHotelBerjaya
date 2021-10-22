@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, flash, redirect
 from formularios import Login, Registro, NuevoUsr
 from utils import pass_valido
 from markupsafe import escape
@@ -20,7 +20,10 @@ def login():
     frm = Login()
     if request.method == 'GET':
         return render_template('login.html', form=frm, titulo='login')
-    # else:
+    else:
+        if frm.signUp():
+            return redirect('/nuevoUsr/')
+        # if request.form.get("Login"):
     #     usr = escape(frm.userId.data.strip())
     #     cla = escape(frm.clave.data.strip())
         
