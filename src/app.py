@@ -24,7 +24,7 @@ def login():
     else:
         if frm.signUp():
             return redirect('/nuevoUsr/')
-        if frm.logIn():
+        else:
             usr = escape(frm.userId.data.strip())
             cla = escape(frm.clave.data.strip())
             sql = f'SELECT usuario, contrasena FROM credenciales WHERE usuario="{usr}"'
@@ -34,8 +34,7 @@ def login():
                 return render_template('login.html', form = frm, titulo = 'login')
             else:
                 claveHash = res[0][1]
-                # if check_password_hash(claveHash, cla):
-                if claveHash == cla:
+                if check_password_hash(claveHash, cla):
                     session.clear()
                     session['usuario'] = res[0][0]
                     session['contrasena'] = res[0][1]
@@ -43,16 +42,6 @@ def login():
                 else:
                     flash('ERROR: Usuario o clave invalidas')
                     return render_template('login.html', form=frm, titulo='login')
-
-    #     sal = ''
-    #     if len(usr.strip()) < 5 or len(usr.strip()) > 40:
-    #         sal += 'User between 5 and 40 chars'
-    #     if len(cla.strip()) < 5 or len(cla.strip()) > 40:
-    #         sal += 'Password between 5 and 40 chars'
-    #     if sal == '':
-    #         sal = 'Data validated'
-    #     sal += '<a href="/">Back home</a>'
-    #     return sal
 
 @app.route('/nuevoUsr/', methods = ['GET', 'POST'])
 def nuevoUsr():
