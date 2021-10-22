@@ -19,7 +19,8 @@
 }
 
 .form-group label,
-.form-control option {
+.form-control option,
+.flash {
   color: black;
 }
 

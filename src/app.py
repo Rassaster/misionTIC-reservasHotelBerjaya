@@ -52,23 +52,16 @@ def nuevoUsr():
         email = escape(request.form['email'])
         clave1 = escape(request.form['passn'])
         clave2 = escape(request.form['passv'])
-        print(f'email:{email}, clave1:{clave1}, clave2:{clave2}')
         # if email == None or len(email) == 0 or not email_valido(email):
         if email == None or len(email) == 0:
             flash('ERROR: Debe suministrar un email válido')
-            print("flag1")
         elif clave1 == None or len(clave1) == 0 or not pass_valido(clave1):
             flash('ERROR: Debe suministrar una clave válida')
-            print("flag2")
         elif clave2 == None or len(clave2) == 0 or not pass_valido(clave2):
             flash('ERROR: Debe suministrar una verificación de clave válida')
-            print("flag3")
         elif clave1 != clave2:
             flash('ERROR: La clave y la verificación no coinciden')
-            print("flag4")
         else:
-            flash('Hello')
-            print("flag5")
             sql = "INSERT INTO credenciales(usuario, contrasena) VALUES (?, ?)", (email, clave1)
             pwd = generate_password_hash(clave1)
             # res = accion(sql,(email, pwd))
