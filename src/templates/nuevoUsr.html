@@ -15,23 +15,23 @@
 				<div class="row">
 					<div class="form-group col-4">
 						<label for="fieldTipoHabitacion">{{ form.email.label }}</label>
-						<div class="form-control">{{ form.email(size=100, minlength=1, maxlength=100) }}</div>
+						{{ form.email(class_="form-control", size=100, minlength=1, maxlength=100) }}
 					</div>
 					<div class="form-group col-4">
 						<label for="fieldNumeroHabitacion">{{ form.passn.label }}</label>
-						<div class="form-control">{{ form.passn(size=40, minlength=5, maxlength=40) }}</div>
+						{{ form.passn(class_="form-control", size=40, minlength=5, maxlength=40) }}
 					</div>
 					<div class="form-group col-4">
 						<label for="fieldTipoHabitacion">{{ form.passv.label }}</label>
-						<div class="form-control">{{ form.passv(size=40, minlength=5, maxlength=40) }}</div>
+						{{ form.passv(class_="form-control", size=40, minlength=5, maxlength=40) }}
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-4">
-						<div class="btn btn-primary">{{ form.enviar }}</div>
+						{{ form.enviar(class_="btn btn-primary") }}
 					</div>
 					{% for msg in get_flashed_messages() %}
-					<div class='fila'>{{ msg }}</div>
+						<div class='fila'>{{ msg }}</div>
 					{% endfor %}
 				</div>
 			</form>
