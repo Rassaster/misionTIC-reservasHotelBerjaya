@@ -29,6 +29,9 @@
 					{{ form.logIn(class_="btn btn-primary") }}
 					{{ form.signUp(class_="btn btn-primary") }}
 				</div>
+				{% for msg in get_flashed_messages() %}
+				<div class='fila'>{{ msg }}</div>
+				{% endfor %}
 			</form>
 		</div>
 	</div>

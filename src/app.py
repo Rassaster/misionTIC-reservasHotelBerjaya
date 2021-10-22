@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request, flash, redirect
+from flask.globals import session
 from formularios import Login, Registro, NuevoUsr
 from utils import pass_valido
 from markupsafe import escape
 import os
 from werkzeug.security import check_password_hash, generate_password_hash
-from db import accion
+from db import accion, seleccion
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -23,11 +24,26 @@ def login():
     else:
         if frm.signUp():
             return redirect('/nuevoUsr/')
-        # if request.form.get("Login"):
-    #     usr = escape(frm.userId.data.strip())
-    #     cla = escape(frm.clave.data.strip())
-        
-    #     # sql = f'SELECT '
+        if frm.logIn():
+            usr = escape(frm.userId.data.strip())
+            cla = escape(frm.clave.data.strip())
+            sql = f'SELECT usuario, contrasena FROM credenciales WHERE usuario="{usr}"'
+            res = seleccion(sql)
+            if len(res) == 0:
+                flash('ERROR: Usuario o clave invalidas')
+                return render_template('login.html', form = frm, titulo = 'login')
+            else:
+                claveHash = res[0][1]
+                # if check_password_hash(claveHash, cla):
+                if claveHash == cla:
+                    session.clear()
+                    session['usuario'] = res[0][0]
+                    session['contrasena'] = res[0][1]
+                    return redirect('/registro/')
+                else:
+                    flash('ERROR: Usuario o clave invalidas')
+                    return render_template('login.html', form=frm, titulo='login')
+
     #     sal = ''
     #     if len(usr.strip()) < 5 or len(usr.strip()) > 40:
     #         sal += 'User between 5 and 40 chars'
