@@ -8,4 +8,6 @@ import re
 #     return re.search('^[a-zA-Z0-9_\-.]{5,40}$',login)
 
 def pass_valido(clave):
-    return re.search('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[^\W]{5,40}',clave)
+    # return True
+    # La contraseña debe tener al entre 6 y 14 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.NO puede tener otros símbolos.
+    return re.search('^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,14}$', clave)

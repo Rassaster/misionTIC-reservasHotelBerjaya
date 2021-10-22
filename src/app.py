@@ -46,27 +46,28 @@ def login():
 @app.route('/nuevoUsr/', methods = ['GET', 'POST'])
 def nuevoUsr():
     frm = NuevoUsr()
-    if request.method=='GET':
+    if request.method == 'GET':
         return render_template('nuevoUsr.html', form=frm, titulo='Registro de usuarios')
     else:
         email = escape(request.form['email'])
         clave1 = escape(request.form['passn'])
         clave2 = escape(request.form['passv'])
-        swerror = False
+        print(f'email:{email}, clave1:{clave1}, clave2:{clave2}')
         # if email == None or len(email) == 0 or not email_valido(email):
         if email == None or len(email) == 0:
             flash('ERROR: Debe suministrar un email válido')
-            swerror = True
-        if clave1 == None or len(clave1) == 0 or not pass_valido(clave1):
+            print("flag1")
+        elif clave1 == None or len(clave1) == 0 or not pass_valido(clave1):
             flash('ERROR: Debe suministrar una clave válida')
-            swerror = True
-        if clave2 == None or len(clave2) == 0 or not pass_valido(clave2):
+            print("flag2")
+        elif clave2 == None or len(clave2) == 0 or not pass_valido(clave2):
             flash('ERROR: Debe suministrar una verificación de clave válida')
-            swerror = True
-        if clave1 != clave2:
+            print("flag3")
+        elif clave1 != clave2:
             flash('ERROR: La clave y la verificación no coinciden')
-            swerror = True
-        if not swerror:           
+            print("flag4")
+        else:
+            print("flag5")
             sql = "INSERT INTO credenciales(usuario, contrasena) VALUES (?, ?)"
             pwd = generate_password_hash(clave1)
             res = accion(sql,(email, pwd))
