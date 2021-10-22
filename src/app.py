@@ -62,13 +62,16 @@ def nuevoUsr():
         elif clave1 != clave2:
             flash('ERROR: La clave y la verificación no coinciden')
         else:
-            sql = "INSERT INTO credenciales(usuario, contrasena) VALUES (?, ?)", (email, clave1)
+            # sql = f"INSERT INTO credenciales (usuario, contrasena) VALUES ('{email}', '{clave1}')"
+            sql = f"INSERT INTO credenciales (usuario, pass) VALUES ('{email}', '{clave1}')"
             pwd = generate_password_hash(clave1)
             # res = accion(sql,(email, pwd))
             # res = accion(sql)
-            res = accion(email, clave1)
-            if res!=0:
+            res = accion(sql)
+            if res != 0:
                 flash('INFO: Datos almacenados con exito')
+                # res = seleccion("SELECT * FROM credenciales")
+                # flash(res)
             else:
                 flash('ERROR: Por favor reintente')
         return render_template('nuevoUsr.html', form=frm, titulo='Registro de datos')
