@@ -32,22 +32,16 @@ def login():
     if request.method == 'GET':
         return render_template('login.html', form=frm, titulo='login')
     else:
-        if frm.validate_on_submit():
-            if frm.logIn.data:  #  Save button is clicked
-                #Save
-                flash('You click the "logIn" button.')
-                return redirect('/nuevoUsr/')
-            return render_template('login.html', form=frm, titulo='login')
-        elif frm.signUp.data:  #  Publish button is clicked
-        #  submit
-            flash('You click the "signUp" button.')
+        if frm.signUp.data:  
+            return redirect('/nuevoUsr/')            
+        elif frm.logIn.data:  
             usr = escape(frm.userId.data.strip())
             cla = escape(frm.clave.data.strip())
             sql = f'SELECT usuario, contrasena FROM credenciales WHERE usuario="{usr}"'
             res = seleccion(sql)
             if len(res) == 0:
                 flash('ERROR: Usuario o clave invalidas')
-                return render_template('login.html', form = frm, titulo = 'login')
+                return redirect('/login/')
             else:
                 claveHash = res[0][1]
                 if check_password_hash(claveHash, cla):
@@ -57,7 +51,8 @@ def login():
                     return redirect('/registro/')
                 else:
                     flash('ERROR: Usuario o clave invalidas')
-                    return render_template('login.html', form=frm, titulo='login')
+                    return redirect('/login/')
+    return render_template('login.html', form=frm, titulo='login')
 
 @app.route('/nuevoUsr/', methods = ['GET', 'POST'])
 def nuevoUsr():

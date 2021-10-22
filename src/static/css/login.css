@@ -22,3 +22,9 @@
 	min-width: 135px;
 	margin: 0px 2px;
 }
+
+.form-group label,
+.form-control option,
+.flash {
+  color: black;
+}
