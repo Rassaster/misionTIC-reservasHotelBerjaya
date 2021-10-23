@@ -177,25 +177,24 @@ footer > div {
 .habitTitle {
   width: 1150px;
   text-align: center;
-  margin: 50px;
 }
 
 .habitTitle > .habH1 {
   color: black;
+  margin-top: 20px;
 }
 
 .habitTitle > .habP {
   color: black;
-  margin-top: 20px;
 }
 
-.habitFotos {
-  margin: 50px;
-  width: 1150px;
+.container > .row > .habitFotos {
+  padding: 0px;
   color: black;
   border-radius: 5px;
   border: 1px solid #14274A;
 }
+
 .habitFotos > .hab1 > .fotHabTit {
   height: 100px;
   color: white;
@@ -208,6 +207,7 @@ footer > div {
   display: flex;
   align-items: center;
 }
+
 .botonesFot {
   display: flex;
   width: 1100px;
@@ -231,4 +231,8 @@ footer > div {
   height: 50px;
   width: 240px;
   border-radius: 5px;
+}
+
+.container > .row {
+  margin: 20px 0px;
 }
