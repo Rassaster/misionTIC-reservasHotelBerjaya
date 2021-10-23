@@ -98,5 +98,13 @@ def contactanos():
 def instalaciones():
     return render_template('instalaciones.html')
 
+@app.route('/comentarios/<habitacion>', methods=['GET', 'POST'])
+def comentarios(habitacion):
+    if request.method == 'POST':
+        print('post')
+    else:
+        print(habitaciones)
+    return render_template('comentarios.html')
+
 if __name__ == '__main__':
     app.run()
