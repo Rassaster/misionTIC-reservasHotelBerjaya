@@ -98,17 +98,16 @@ def instalaciones():
 @app.route('/comentarios/')
 def comentarios():
     habitacion = escape(request.args.get('habitacion', 'error'))
-    print(habitacion)
     sql = f"SELECT comen FROM fullTable WHERE caract='{habitacion}'"
     res = seleccion(sql)
     if len(res) == 0:
         dat = None
-        print('No existen registros')
+        msg = 'No existen registros'
     else:
         dat = res
-        print(f'Se muestran los datos')
+        msg ='Se muestran los datos'
 
-    return render_template('comentarios.html', comm=dat)
+    return render_template('comentarios.html', data = dat, msg = msg)
 
 if __name__ == '__main__':
     app.run()
