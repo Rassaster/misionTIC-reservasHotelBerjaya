@@ -34,11 +34,13 @@
 				<div class="row btnRow">
 					{{ form.enviar(class_="btn btn-primary") }}
 				</div>
+				<!-- {% if msg in get_flashed_messages() %} -->
 				<div class="row">
 					{% for msg in get_flashed_messages() %}
 						<div class='flash'>{{ msg }}</div>
 					{% endfor %}
 				</div>
+				<!-- {% endif %} -->
 			</form>
 		</div>
 	</div>

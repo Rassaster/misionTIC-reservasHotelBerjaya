@@ -56,7 +56,12 @@ def nuevoUsr():
         clave1 = escape(request.form['passn'])
         clave2 = escape(request.form['passv'])
 
-        if email == None or len(email) == 0:
+        sql = f"SELECT COUNT(usuario) FROM fullTable WHERE usuario='{email}'"
+        res = seleccion(sql)
+
+        if res[0][0] > 0:
+            flash('ERROR: Por favor use otro correo, el ingresado ya existe')
+        elif email == None or len(email) == 0:
             flash('ERROR: Debe suministrar un email válido')
         elif clave1 == None or len(clave1) == 0 or not pass_valido(clave1):
             flash('ERROR: Debe suministrar una clave válida')
@@ -85,7 +90,7 @@ def registro():
     usr = session['usuario']
 
     if request.method == 'GET':
-        flash('INFO: Sesion iniciada para: ' + usr)
+        # flash('INFO: Sesion iniciada para: ' + usr)
         print(f'INFO: Sesion iniciada para: {usr}')
 
         return render_template('registro.html',form=frm, titulo='Registro')
