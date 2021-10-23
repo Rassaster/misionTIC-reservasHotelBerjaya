@@ -47,13 +47,14 @@ def login():
 @app.route('/nuevoUsr/', methods = ['GET', 'POST'])
 def nuevoUsr():
     frm = NuevoUsr()
+    
     if request.method == 'GET':
         return render_template('nuevoUsr.html', form=frm, titulo='Nuevo usuario')
     else:
         email = escape(request.form['email'])
         clave1 = escape(request.form['passn'])
         clave2 = escape(request.form['passv'])
-        # if email == None or len(email) == 0 or not email_valido(email):
+
         if email == None or len(email) == 0:
             flash('ERROR: Debe suministrar un email válido')
         elif clave1 == None or len(clave1) == 0 or not pass_valido(clave1):
@@ -74,6 +75,7 @@ def nuevoUsr():
                 return redirect('/registro/')
             else:
                 flash('ERROR: Por favor reintente')
+
         return render_template('nuevoUsr.html', form=frm, titulo='Nuevo usuario')
 
 @app.route('/registro/')
@@ -88,7 +90,7 @@ def habitaciones():
     habFam = seleccion(f"SELECT COUNT(comen) FROM fullTable WHERE caract = 'familiar' AND estado = 'disponible'")
     habDel = seleccion(f"SELECT COUNT(comen) FROM fullTable WHERE caract = 'deluxe' AND estado = 'disponible'")
     habPen = seleccion(f"SELECT COUNT(comen) FROM fullTable WHERE caract = 'penthouse' AND estado = 'disponible'")
-    # list > tuple
+
     familiarOpen = habFam[0][0]
     deluxeOpen = habDel[0][0]
     penthouseOpen = habPen[0][0]
@@ -114,7 +116,7 @@ def instalaciones():
 def comentarios():
     habitacion = escape(request.args.get('habitacion', 'error'))
 
-    sql = f"SELECT comen FROM fullTable WHERE caract='{habitacion}'"
+    sql = f"SELECT nombre, apellido, comen, calific FROM fullTable WHERE caract='{habitacion}'"
     res = seleccion(sql)
     if len(res) == 0:
         dat = None

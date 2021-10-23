@@ -249,6 +249,7 @@ footer > div {
   padding: 10px;
 }
 
-.container > p {
+.container > p,
+.comentario > p {
   color: black;
 }
