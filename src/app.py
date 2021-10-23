@@ -20,7 +20,7 @@ def home():
 def login():
     frm = Login()
     if request.method == 'GET':
-        return render_template('login.html', form=frm, titulo='login')
+        return render_template('login.html', form=frm, titulo='Login')
     else:
         if frm.signUp.data:  
             return redirect('/nuevoUsr/')            
@@ -42,13 +42,13 @@ def login():
                 else:
                     flash('ERROR: Email o clave invalidas')
                     return redirect('/login/')
-    return render_template('login.html', form=frm, titulo='login')
+    return render_template('login.html', form=frm, titulo='Login')
 
 @app.route('/nuevoUsr/', methods = ['GET', 'POST'])
 def nuevoUsr():
     frm = NuevoUsr()
     if request.method == 'GET':
-        return render_template('nuevoUsr.html', form=frm, titulo='Registro de usuarios')
+        return render_template('nuevoUsr.html', form=frm, titulo='Nuevo usuario')
     else:
         email = escape(request.form['email'])
         clave1 = escape(request.form['passn'])
@@ -74,14 +74,14 @@ def nuevoUsr():
                 return redirect('/registro/')
             else:
                 flash('ERROR: Por favor reintente')
-        return render_template('nuevoUsr.html', form=frm, titulo='Registro de datos')
+        return render_template('nuevoUsr.html', form=frm, titulo='Nuevo usuario')
 
 @app.route('/registro/')
 def registro():
     frm = Registro()
     usr = session['usuario']
     flash('INFO: Sesion iniciada para: ' + usr)
-    return render_template('registro.html',form=frm, titulo='Habitaciones')
+    return render_template('registro.html',form=frm, titulo='Registro')
 
 @app.route('/habitaciones/')
 def habitaciones():
@@ -106,8 +106,14 @@ def comentarios():
     else:
         dat = res
         msg ='Se muestran los datos'
+    
+    contexto = {
+        'data' : dat, 
+        'qRes' : msg, 
+        'titulo' : 'Comentarios'
+    }
 
-    return render_template('comentarios.html', data = dat, msg = msg)
+    return render_template('comentarios.html', **contexto)
 
 if __name__ == '__main__':
     app.run()
