@@ -33,6 +33,7 @@
 
 .btn-primary {
   background-color: #14274A;
+  border-color: transparent;
   font-weight: bold;
   color: white;
   padding: 10px;

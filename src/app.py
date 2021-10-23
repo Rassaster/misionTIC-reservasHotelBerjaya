@@ -120,7 +120,7 @@ def habitaciones():
 
 @app.route('/contactanos/')
 def contactanos():
-    return render_template('contactanos.html')
+    return render_template('contactanos.html', titulo='Contactanos')
 
 @app.route('/instalaciones/')
 def instalaciones():

@@ -28,3 +28,19 @@
 .flash {
   color: black;
 }
+
+#matchForm {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+#signUp {
+	width: 32%;
+}
+
+#matchForm > .row {
+	margin-bottom: 20px;
+}

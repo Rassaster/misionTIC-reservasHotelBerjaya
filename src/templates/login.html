@@ -27,14 +27,23 @@
 				</div>
 				<div class="row btnRow">
 					{{ form.logIn(class_="btn btn-primary") }}
-					{{ form.signUp(class_="btn btn-primary") }}
-				</div>
-				<div class="row">
-					{% for msg in get_flashed_messages() %}
-						<div class='flash'>{{ msg }}</div>
-					{% endfor %}
 				</div>
 			</form>
+			<div id="matchForm">
+				<div class="row btnRow">
+					<!-- {{ form.signUp(class_="btn btn-primary") }} -->
+					<a href="{{ url_for('registro') }}">
+						<button type="button" class="btn btn-primary">Registarse</button>
+					</a>
+				</div>
+				{% if msg in get_flashed_messages() %}
+					<div class="row btnRow">
+						{% for msg in get_flashed_messages() %}
+							<div class='flash'>{{ msg }}</div>
+						{% endfor %}
+					</div>
+				{% endif %}
+			</div>
 		</div>
 	</div>
 {% endblock %}
