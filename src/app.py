@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, redirect
+from flask import Flask, render_template, request, flash, redirect, session
 from flask.globals import session
 from formularios import Login, Registro, NuevoUsr
 from utils import pass_valido
@@ -16,16 +16,6 @@ app.secret_key = os.urandom(24)
 def home():
     return render_template('index.html')
 
-
-    # if form.validate_on_submit():
-    #     if form.save.data:  #  Save button is clicked
-    #         #Save
-    #         flash('You click the "Save" button.')
-    #     elif form.publish.data:  #  Publish button is clicked
-    #         #  submit
-    #         flash('You click the "Publish" button.')
-    #     return redirect(url_for('index'))
-
 @app.route('/login/', methods=['GET','POST'])
 def login():
     frm = Login()
@@ -35,12 +25,12 @@ def login():
         if frm.signUp.data:  
             return redirect('/nuevoUsr/')            
         elif frm.logIn.data:  
-            usr = escape(frm.userId.data.strip())
+            ema = escape(frm.email.data.strip())
             cla = escape(frm.clave.data.strip())
-            sql = f'SELECT usuario, contrasena FROM credenciales WHERE usuario="{usr}"'
+            sql = f'SELECT usuario, contrasena FROM fullTable WHERE usuario="{ema}"'
             res = seleccion(sql)
             if len(res) == 0:
-                flash('ERROR: Usuario o clave invalidas')
+                flash('ERROR: Email o clave invalidas')
                 return redirect('/login/')
             else:
                 claveHash = res[0][1]
@@ -50,7 +40,7 @@ def login():
                     session['contrasena'] = res[0][1]
                     return redirect('/registro/')
                 else:
-                    flash('ERROR: Usuario o clave invalidas')
+                    flash('ERROR: Email o clave invalidas')
                     return redirect('/login/')
     return render_template('login.html', form=frm, titulo='login')
 
@@ -78,13 +68,20 @@ def nuevoUsr():
             res = accion(sql,(email, pwd))
             if res != 0:
                 flash('INFO: Datos almacenados con exito')
+                session.clear()
+                session['usuario'] = email
+                session['contrasena'] = pwd
+                return redirect('/registro/')
             else:
                 flash('ERROR: Por favor reintente')
         return render_template('nuevoUsr.html', form=frm, titulo='Registro de datos')
 
 @app.route('/registro/')
 def registro():
-    return render_template('registro.html', titulo='Habitaciones')
+    frm = Registro()
+    usr = session['usuario']
+    flash('INFO: Sesion iniciada para: ' + usr)
+    return render_template('registro.html',form=frm, titulo='Habitaciones')
 
 @app.route('/habitaciones/')
 def habitaciones():

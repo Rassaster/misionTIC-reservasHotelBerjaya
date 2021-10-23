@@ -15,14 +15,14 @@
 			<form class="registroForm" action="{{ url_for('login') }}" method="POST">
 				<div class="row fieldRow">
 					<div class="form-group">
-						<label for="fieldNombre">Usuario</label>
-						<input type="text" class="form-control" id="fieldNombre" name="fieldNombre">
+						<label for="fieldNombre">{{ form.email.label }}</label>
+						{{ form.email(class_="form-control", size=100, minlength=1, maxlength=100) }}
 					</div>
 				</div>
 				<div class="row fieldRow">
 					<div class="form-group">
-						<label for="fieldContrasena">Contraseña</label>
-						<input type="text" class="form-control" id="fieldContrasena" name="fieldContrasena">
+						<label for="fieldContrasena">{{ form.clave.label }}</label>
+						{{ form.clave(class_="form-control", size=40, minlength=5, maxlength=40) }}
 					</div>
 				</div>
 				<div class="row btnRow">
