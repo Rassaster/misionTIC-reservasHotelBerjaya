@@ -22,7 +22,7 @@
 					<p class="fotHabTit">HABITACIÓN FAMILIAR</p>
 					<div class="botonesFot">
 						<a href="{{ url_for('comentarios', habitacion='familiar') }}">VER COMENTARIOS</a>
-						<p>Habitaciones disponibles: 1</p>
+						<p>Habitaciones disponibles: {{ familiarOpen }}</p>
 						<button>Reservar</button>
 					</div>
 				</div>
@@ -35,7 +35,7 @@
 					<p class="fotHabTit">2 AMBIENTES DELUXE</p>
 					<div class="botonesFot">
 						<a href="{{ url_for('comentarios', habitacion='deluxe') }}">VER COMENTARIOS</a>
-						<p>Habitaciones disponibles: 2</p>
+						<p>Habitaciones disponibles: {{ deluxeOpen }}</p>
 						<button>Reservar</button>
 					</div>
 				</div>
@@ -48,7 +48,7 @@
 					<p class="fotHabTit">PENTHOUSE EMPERATRIZ</p>
 					<div class="botonesFot">
 						<a href="{{ url_for('comentarios', habitacion='penthouse') }}">VER COMENTARIOS</a>
-						<p>Habitaciones disponibles: 3</p>
+						<p>Habitaciones disponibles: {{ penthouseOpen }}</p>
 						<button>Reservar</button>
 					</div>
 				</div>

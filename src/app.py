@@ -85,7 +85,22 @@ def registro():
 
 @app.route('/habitaciones/')
 def habitaciones():
-    return render_template('habitaciones.html', titulo='Habitaciones')
+    habFam = seleccion(f"SELECT COUNT(comen) FROM fullTable WHERE caract = 'familiar' AND estado = 'disponible'")
+    habDel = seleccion(f"SELECT COUNT(comen) FROM fullTable WHERE caract = 'deluxe' AND estado = 'disponible'")
+    habPen = seleccion(f"SELECT COUNT(comen) FROM fullTable WHERE caract = 'penthouse' AND estado = 'disponible'")
+    # list > tuple
+    familiarOpen = habFam[0][0]
+    deluxeOpen = habDel[0][0]
+    penthouseOpen = habPen[0][0]
+
+    contexto = {
+        'familiarOpen' : familiarOpen,
+        'deluxeOpen' : deluxeOpen,
+        'penthouseOpen' : penthouseOpen,
+        'titulo' : 'Habitaciones'
+    }
+
+    return render_template('habitaciones.html', **contexto)
 
 @app.route('/contactanos/')
 def contactanos():
@@ -98,6 +113,7 @@ def instalaciones():
 @app.route('/comentarios/')
 def comentarios():
     habitacion = escape(request.args.get('habitacion', 'error'))
+
     sql = f"SELECT comen FROM fullTable WHERE caract='{habitacion}'"
     res = seleccion(sql)
     if len(res) == 0:
@@ -114,6 +130,12 @@ def comentarios():
     }
 
     return render_template('comentarios.html', **contexto)
+
+def consultarDB(colSel, table, colMat, match):
+    sql = f"SELECT {colSel} FROM {table} WHERE {colMat} = '{match}'"
+    res = seleccion(sql)
+        
+    return res
 
 if __name__ == '__main__':
     app.run()
