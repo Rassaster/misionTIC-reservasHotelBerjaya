@@ -210,18 +210,16 @@ footer > div {
 
 .botonesFot {
   display: flex;
-  width: 1100px;
   justify-content: space-between;
-  margin: 25px;
   align-items: center;
+  margin: 25px;
 }
 
-.habitFotos > .hab1 > .botonesFot > a {
-  color:black;
-}
-
+.habitFotos > .hab1 > .botonesFot > a,
 .habitFotos > .hab1 > .botonesFot > p {
+  text-decoration: none;
   color:black;
+  margin: 0px;
 }
 
 .habitFotos > .hab1 > .botonesFot > button {
