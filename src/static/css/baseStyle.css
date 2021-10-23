@@ -177,25 +177,24 @@ footer > div {
 .habitTitle {
   width: 1150px;
   text-align: center;
-  margin: 50px;
 }
 
 .habitTitle > .habH1 {
   color: black;
+  margin-top: 20px;
 }
 
 .habitTitle > .habP {
   color: black;
-  margin-top: 20px;
 }
 
-.habitFotos {
-  margin: 50px;
-  width: 1150px;
+.container > .row > .habitFotos {
+  padding: 0px;
   color: black;
   border-radius: 5px;
   border: 1px solid #14274A;
 }
+
 .habitFotos > .hab1 > .fotHabTit {
   height: 100px;
   color: white;
@@ -208,20 +207,19 @@ footer > div {
   display: flex;
   align-items: center;
 }
+
 .botonesFot {
   display: flex;
-  width: 1100px;
   justify-content: space-between;
-  margin: 25px;
   align-items: center;
+  margin: 25px;
 }
 
-.habitFotos > .hab1 > .botonesFot > a {
-  color:black;
-}
-
+.habitFotos > .hab1 > .botonesFot > a,
 .habitFotos > .hab1 > .botonesFot > p {
+  text-decoration: none;
   color:black;
+  margin: 0px;
 }
 
 .habitFotos > .hab1 > .botonesFot > button {
@@ -231,4 +229,22 @@ footer > div {
   height: 50px;
   width: 240px;
   border-radius: 5px;
+}
+
+.container > .row {
+  margin: 20px 0px;
+}
+
+.mainNav ul li a,
+.contactUsCtn ul li a,
+.socialMediaCtn ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: #14274A;
+  font-weight: bold;
+  color: white;
+  padding: 10px;
 }

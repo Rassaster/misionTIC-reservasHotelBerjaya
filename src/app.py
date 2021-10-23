@@ -1,7 +1,11 @@
-from flask import Flask, render_template, request
-from formularios import Login, Registro
+from flask import Flask, render_template, request, flash, redirect, session
+from flask.globals import session
+from formularios import Login, Registro, NuevoUsr
+from utils import pass_valido
 from markupsafe import escape
 import os
+from werkzeug.security import check_password_hash, generate_password_hash
+from db import accion, seleccion
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -14,46 +18,138 @@ def home():
 
 @app.route('/login/', methods=['GET','POST'])
 def login():
-    if request.method=='GET':
-        frm = Login()
-        return render_template('login.html', form=frm, titulo='login')
+    frm = Login()
+    if request.method == 'GET':
+        return render_template('login.html', form=frm, titulo='Login')
     else:
-        usr = escape(request.form['userId'])
-        cla = escape(request.form['clave'])
-        sal = ''
-        if len(usr.strip()) < 5 or len(usr.strip()) > 40:
-            sal += 'User between 5 and 40 chars'
-        if len(cla.strip()) < 5 or len(cla.strip()) > 40:
-            sal += 'Password between 5 and 40 chars'
-        if sal == '':
-            sal = 'Data validated'
-        sal += '<a href="/">Back home</a>'
-        return sal
+        if frm.signUp.data:  
+            return redirect('/nuevoUsr/')            
+        elif frm.logIn.data:  
+            ema = escape(frm.email.data.strip())
+            cla = escape(frm.clave.data.strip())
+            sql = f'SELECT usuario, contrasena FROM fullTable WHERE usuario="{ema}"'
+            res = seleccion(sql)
+            if len(res) == 0:
+                flash('ERROR: Email o clave invalidas')
+                return redirect('/login/')
+            else:
+                claveHash = res[0][1]
+                if check_password_hash(claveHash, cla):
+                    session.clear()
+                    session['usuario'] = res[0][0]
+                    session['contrasena'] = res[0][1]
+                    return redirect('/registro/')
+                else:
+                    flash('ERROR: Email o clave invalidas')
+                    return redirect('/login/')
+    return render_template('login.html', form=frm, titulo='Login')
 
-@app.route('/registro/', methods=['GET','POST'])
+@app.route('/nuevoUsr/', methods = ['GET', 'POST'])
+def nuevoUsr():
+    frm = NuevoUsr()
+    if request.method == 'GET':
+        return render_template('nuevoUsr.html', form=frm, titulo='Nuevo usuario')
+    else:
+        email = escape(request.form['email'])
+        clave1 = escape(request.form['passn'])
+        clave2 = escape(request.form['passv'])
+        # if email == None or len(email) == 0 or not email_valido(email):
+        if email == None or len(email) == 0:
+            flash('ERROR: Debe suministrar un email válido')
+        elif clave1 == None or len(clave1) == 0 or not pass_valido(clave1):
+            flash('ERROR: Debe suministrar una clave válida')
+        elif clave2 == None or len(clave2) == 0 or not pass_valido(clave2):
+            flash('ERROR: Debe suministrar una verificación de clave válida')
+        elif clave1 != clave2:
+            flash('ERROR: La clave y la verificación no coinciden')
+        else:
+            sql = f"INSERT INTO fullTable (usuario, contrasena) VALUES (?, ?)"
+            pwd = generate_password_hash(clave1)
+            res = accion(sql,(email, pwd))
+            if res != 0:
+                flash('INFO: Datos almacenados con exito')
+                session.clear()
+                session['usuario'] = email
+                session['contrasena'] = pwd
+                return redirect('/registro/')
+            else:
+                flash('ERROR: Por favor reintente')
+        return render_template('nuevoUsr.html', form=frm, titulo='Nuevo usuario')
+
+@app.route('/registro/', methods = ['GET', 'POST'])
 def registro():
-    if request.method=='GET':
-        # Se debe crear una instancia del formulario
-        frm = Registro()
-        return render_template('registro.html',form=frm,titulo='Registro de usuarios')
-    # else:
-    #     # recuperar los datos del formulario
-    #     nom = escape(request.form["nombre"]) # Dificultar la inyección de código
-    #     ape = escape(request.form["apellido"]) # Dificultar la inyección de código
-    #     # Validar los datos del lado del servidor
-    #     sal = ''
-    #     if len(nom.strip())<1:
-    #         sal += 'Los nombres son requeridos' 
-    #     if len(ape.strip())<1:
-    #         sal += 'Los apellidos son requeridos' 
-    #     if sal=='':
-    #         sal = 'Los datos son válidos, deberíamos consultar a la BD'
-    #     sal += '<a href="/">Volver al inicio</a>'
-    #     return sal
+    frm = Registro()
+    usr = session['usuario']
+    if request.method == 'GET':
+        flash('INFO: Sesion iniciada para: ' + usr)
+        return render_template('registro.html',form=frm, titulo='Registro')
+    else:
+        if frm.reserva.data:
+            nom = escape(request.form['nombre'])
+            ape = escape(request.form['apellido'])
+            tipoDoc = escape(request.form['tipoDoc'])
+            doc = escape(request.form['documento'])
+            dateIn = escape(request.form['fechaIn'])
+            dateOut = escape(request.form['fechaOut'])
+            tipoHab = escape(request.form['tipoHab'])
+            numHab = escape(request.form['numeroHab'])
+	    # if frm.reserva.data:
+            flash('Realizar consulta con: '+ nom + ' / ' + ape + ' / ' + tipoDoc + ' / ' + doc + ' / ' + dateIn + ' / ' + dateOut + ' / ' + tipoHab + ' / ' + numHab)
+    return render_template('registro.html',form=frm, titulo='Registro')
 
 @app.route('/habitaciones/')
 def habitaciones():
-    return render_template('habitaciones.html', titulo='Habitaciones')
+    habFam = seleccion(f"SELECT COUNT(comen) FROM fullTable WHERE caract = 'familiar' AND estado = 'disponible'")
+    habDel = seleccion(f"SELECT COUNT(comen) FROM fullTable WHERE caract = 'deluxe' AND estado = 'disponible'")
+    habPen = seleccion(f"SELECT COUNT(comen) FROM fullTable WHERE caract = 'penthouse' AND estado = 'disponible'")
+    # list > tuple
+    familiarOpen = habFam[0][0]
+    deluxeOpen = habDel[0][0]
+    penthouseOpen = habPen[0][0]
+
+    contexto = {
+        'familiarOpen' : familiarOpen,
+        'deluxeOpen' : deluxeOpen,
+        'penthouseOpen' : penthouseOpen,
+        'titulo' : 'Habitaciones'
+    }
+
+    return render_template('habitaciones.html', **contexto)
+
+@app.route('/contactanos/')
+def contactanos():
+    return render_template('contactanos.html')
+
+@app.route('/instalaciones/')
+def instalaciones():
+    return render_template('instalaciones.html')
+
+@app.route('/comentarios/')
+def comentarios():
+    habitacion = escape(request.args.get('habitacion', 'error'))
+
+    sql = f"SELECT comen FROM fullTable WHERE caract='{habitacion}'"
+    res = seleccion(sql)
+    if len(res) == 0:
+        dat = None
+        msg = 'No existen registros'
+    else:
+        dat = res
+        msg ='Se muestran los datos'
+    
+    contexto = {
+        'data' : dat, 
+        'qRes' : msg, 
+        'titulo' : 'Comentarios'
+    }
+
+    return render_template('comentarios.html', **contexto)
+
+def consultarDB(colSel, table, colMat, match):
+    sql = f"SELECT {colSel} FROM {table} WHERE {colMat} = '{match}'"
+    res = seleccion(sql)
+        
+    return res
 
 if __name__ == '__main__':
     app.run()

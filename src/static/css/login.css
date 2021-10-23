@@ -1,0 +1,30 @@
+.registroForm {
+  display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+.fieldRow {
+	width: 40%;
+}
+
+.btnRow {
+	width: 40%;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.btn {
+	width: 32%;
+	min-width: 135px;
+	margin: 0px 2px;
+}
+
+.form-group label,
+.form-control option,
+.flash {
+  color: black;
+}

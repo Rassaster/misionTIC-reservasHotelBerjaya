@@ -1,0 +1,39 @@
+.body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 80%;
+  /* text-align: center; */
+}
+
+.registroForm {
+  margin: 20px 0px;
+  width: 100%;
+}
+
+.form-group input {
+  margin-bottom: 20px;
+}
+
+.form-group label,
+.form-control option,
+.flash {
+  color: black;
+}
+
+.mainNav ul li a,
+.contactUsCtn ul li a,
+.socialMediaCtn ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: #14274A;
+  font-weight: bold;
+  color: white;
+  padding: 10px;
+}
