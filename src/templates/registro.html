@@ -29,12 +29,8 @@
 				</div>
 				<div class="row">
 					<div class="form-group col-6">
-						<label for="fieldTipoDocumento">Tipo de documento</label>
-						<select class="form-control" id="fieldTipoDocumento" name="fieldTipoDocumento">
-							<option>Cedula</option>
-							<option>Pasaporte</option>
-							<option>Cedula de extranjeria</option>
-						</select>
+						<label for="fieldTipoDocumento">{{ form.tipoDoc.label }}</label>
+						{{ form.tipoDoc(class_="form-control") }}
 					</div>
 					<div class="form-group col-6">
 						<label for="fieldNumeroDocumento">{{ form.documento.label }}</label>
@@ -44,34 +40,31 @@
 				<div class="row">
 					<div class="form-group col-6">
 						<label for="fieldFechaIngreso">{{ form.fechaIn.label }}</label>
-						{{ form.fechaIn(class_="form-control", size=20, minlength=1, maxlength=20) }}
+						{{ form.fechaIn(class_="form-control", format="'%m/%-nbbbbbbbbbbbbbbbxzzzzzzzzzzzzzzzzzzzzzzzz/%Y'") }}
 					</div>
 					<div class="form-group col-6">
-						<label for="fieldFechaSalida">Fecha salida</label>
-						<input type="date" class="form-control" id="fieldFechaSalida" name="fieldFechaSalida">
+						<label for="fieldFechaSalida">{{ form.fechaOut.label }}</label>
+						{{ form.fechaOut(class_="form-control", format="'%m/%-nbbbbbbbbbbbbbbbxzzzzzzzzzzzzzzzzzzzzzzzz/%Y'") }}
 					</div>
 				</div>
 				<div class="row">
 					<div class="form-group col-4">
-						<label for="fieldTipoHabitacion">Tipo Habitacion</label>
-						<select class="form-control" id="fieldTipoHabitacion" name="fieldTipoHabitacion">
-							<option>Familiar</option>
-							<option>Deluxe</option>
-							<option>Emperatriz</option>
+						<label for="fieldTipoHabitacion">{{ form.tipoDoc.label }}</label>
+						{{ form.tipoDoc(class_="form-control") }}
 						</select>
 					</div>
 					<div class="form-group col-4">
-						<label for="fieldNumeroHabitacion">Numero Habitacion</label>
-						<input type="text" class="form-control" id="fieldNumeroHabitacion" name="fieldNumeroHabitacion">
+						<label for="fieldNumeroHabitacion">{{ form.numeroHab.label }}</label>
+						{{ form.numeroHab(class_="form-control", size=20, minlength=1, maxlength=20) }}
 					</div>
 					<div class="form-group col-4">
-						<label for="fieldTipoHabitacion">Precio Habitacion</label>
-						<input type="text" class="form-control" id="fieldTipoHabitacion" name="fieldTipoHabitacion" disabled>
+						<label for="fieldTipoHabitacion">{{ form.precioHab.label }}</label>
+						{{ form.precioHab(class_="form-control", size=20, minlength=1, maxlength=20) }}
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-4">
-						<button type="submit" class="btn btn-primary">Guardar</button>
+						{{ form.reserva(class_="btn btn-primary") }}
 					</div>
 				</div>
 			</form>
