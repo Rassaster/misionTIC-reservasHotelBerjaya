@@ -8,8 +8,12 @@
 {% block title %}{{ titulo }}{% endblock %}
 
 {% block content %}
-	{{ data }}
-	{{ qRes }}
+<div class="container">
+	{% for comm in data %}
+		<p>{{ comm[0] }}</p>
+	{% endfor %} 
+	<p>{{ qRes }}</p>
+</div>
 {% endblock %}
 
 {% block footer %}
