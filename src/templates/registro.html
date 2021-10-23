@@ -12,11 +12,11 @@
 	<div class="body">
 		<div class="container">
 			<form class="registroForm" action="{{ url_for('registro') }}" method="POST">
-				<div class="row">
+				<!-- <div class="row">
 					{% for msg in get_flashed_messages() %}
 						<div class='flash'>{{ msg }}</div>
 					{% endfor %}
-				</div>
+				</div> -->
 				<div class="row">
 					<div class="form-group col-6">
 						<label for="fieldNombre">{{ form.nombre.label }}</label>

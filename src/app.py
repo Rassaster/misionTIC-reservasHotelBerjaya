@@ -19,29 +19,30 @@ def home():
 @app.route('/login/', methods=['GET','POST'])
 def login():
     frm = Login()
+
     if request.method == 'GET':
         return render_template('login.html', form=frm, titulo='Login')
-    else:
-        if frm.signUp.data:  
-            return redirect('/nuevoUsr/')            
-        elif frm.logIn.data:  
-            ema = escape(frm.email.data.strip())
-            cla = escape(frm.clave.data.strip())
-            sql = f'SELECT usuario, contrasena FROM fullTable WHERE usuario="{ema}"'
-            res = seleccion(sql)
-            if len(res) == 0:
+    elif frm.logIn.data:  
+        ema = escape(frm.email.data.strip())
+        cla = escape(frm.clave.data.strip())
+
+        sql = f'SELECT usuario, contrasena FROM fullTable WHERE usuario="{ema}"'
+        res = seleccion(sql)
+
+        if len(res) == 0:
+            flash('ERROR: Email o clave invalidas')
+            return redirect('/login/')
+        else:
+            claveHash = res[0][1]
+            if check_password_hash(claveHash, cla):
+                session.clear()
+                session['usuario'] = res[0][0]
+                session['contrasena'] = res[0][1]
+                return redirect('/registro/')
+            else:
                 flash('ERROR: Email o clave invalidas')
                 return redirect('/login/')
-            else:
-                claveHash = res[0][1]
-                if check_password_hash(claveHash, cla):
-                    session.clear()
-                    session['usuario'] = res[0][0]
-                    session['contrasena'] = res[0][1]
-                    return redirect('/registro/')
-                else:
-                    flash('ERROR: Email o clave invalidas')
-                    return redirect('/login/')
+
     return render_template('login.html', form=frm, titulo='Login')
 
 @app.route('/nuevoUsr/', methods = ['GET', 'POST'])
@@ -82,21 +83,28 @@ def nuevoUsr():
 def registro():
     frm = Registro()
     usr = session['usuario']
+
     if request.method == 'GET':
         flash('INFO: Sesion iniciada para: ' + usr)
+        print(f'INFO: Sesion iniciada para: {usr}')
+
         return render_template('registro.html',form=frm, titulo='Registro')
-    else:
-        if frm.reserva.data:
-            nom = escape(request.form['nombre'])
-            ape = escape(request.form['apellido'])
-            tipoDoc = escape(request.form['tipoDoc'])
-            doc = escape(request.form['documento'])
-            dateIn = escape(request.form['fechaIn'])
-            dateOut = escape(request.form['fechaOut'])
-            tipoHab = escape(request.form['tipoHab'])
-            numHab = escape(request.form['numeroHab'])
-	    # if frm.reserva.data:
-            flash('Realizar consulta con: '+ nom + ' / ' + ape + ' / ' + tipoDoc + ' / ' + doc + ' / ' + dateIn + ' / ' + dateOut + ' / ' + tipoHab + ' / ' + numHab)
+    elif frm.reserva.data:
+        nom = escape(request.form['nombre'])
+        ape = escape(request.form['apellido'])
+        tipoDoc = escape(request.form['tipoDoc'])
+        doc = escape(request.form['documento'])
+        dateIn = escape(request.form['fechaIn'])
+        dateOut = escape(request.form['fechaOut'])
+        tipoHab = escape(request.form['tipoHab'])
+        numHab = escape(request.form['numeroHab'])
+    # if frm.reserva.data:
+        flash('Realizar consulta con: '+ nom + ' / ' + ape + ' / ' + tipoDoc + ' / ' + doc + ' / ' + dateIn + ' / ' + dateOut + ' / ' + tipoHab + ' / ' + numHab)
+        print(f"Realizar consulta con: '+ {{ nom }} + ' / ' + {{ ape }} + ' / ' + {{ tipoDoc }} + ' / ' + {{ doc }} + ' / ' + {{ dateIn }} + ' / ' + {{ dateOut }} + ' / ' + {{ tipoHab }} + ' / ' + {{ numHab }}")
+
+    # for msg in get_flashed_messages():
+    #     print(f'flashed_messages: {msg}')
+
     return render_template('registro.html',form=frm, titulo='Registro')
 
 @app.route('/habitaciones/')
