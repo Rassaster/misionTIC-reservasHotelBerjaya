@@ -47,7 +47,7 @@ def login():
 @app.route('/nuevoUsr/', methods = ['GET', 'POST'])
 def nuevoUsr():
     frm = NuevoUsr()
-    
+
     if request.method == 'GET':
         return render_template('nuevoUsr.html', form=frm, titulo='Nuevo usuario')
     else:
@@ -78,11 +78,25 @@ def nuevoUsr():
 
         return render_template('nuevoUsr.html', form=frm, titulo='Nuevo usuario')
 
-@app.route('/registro/')
+@app.route('/registro/', methods = ['GET', 'POST'])
 def registro():
     frm = Registro()
     usr = session['usuario']
-    flash('INFO: Sesion iniciada para: ' + usr)
+    if request.method == 'GET':
+        flash('INFO: Sesion iniciada para: ' + usr)
+        return render_template('registro.html',form=frm, titulo='Registro')
+    else:
+        if frm.reserva.data:
+            nom = escape(request.form['nombre'])
+            ape = escape(request.form['apellido'])
+            tipoDoc = escape(request.form['tipoDoc'])
+            doc = escape(request.form['documento'])
+            dateIn = escape(request.form['fechaIn'])
+            dateOut = escape(request.form['fechaOut'])
+            tipoHab = escape(request.form['tipoHab'])
+            numHab = escape(request.form['numeroHab'])
+	    # if frm.reserva.data:
+            flash('Realizar consulta con: '+ nom + ' / ' + ape + ' / ' + tipoDoc + ' / ' + doc + ' / ' + dateIn + ' / ' + dateOut + ' / ' + tipoHab + ' / ' + numHab)
     return render_template('registro.html',form=frm, titulo='Registro')
 
 @app.route('/habitaciones/')
@@ -132,12 +146,6 @@ def comentarios():
     }
 
     return render_template('comentarios.html', **contexto)
-
-def consultarDB(colSel, table, colMat, match):
-    sql = f"SELECT {colSel} FROM {table} WHERE {colMat} = '{match}'"
-    res = seleccion(sql)
-        
-    return res
 
 if __name__ == '__main__':
     app.run()
