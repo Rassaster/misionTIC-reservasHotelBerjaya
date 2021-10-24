@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, flash, redirect, session
-from flask.globals import session
+# from flask.globals import session
 from formularios import Login, Registro, NuevoUsr
 from utils import pass_valido
 from markupsafe import escape
