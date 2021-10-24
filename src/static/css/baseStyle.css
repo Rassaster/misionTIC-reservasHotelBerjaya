@@ -168,7 +168,7 @@ footer > div {
   color: black;
 }
 
-.img-fluid {
+#img-home {
   max-height: 284px;
   min-width: 384px;
 }
