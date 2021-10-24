@@ -91,7 +91,6 @@ def registro():
 
     if request.method == 'GET':
         print(f'INFO: Sesion iniciada para: {usr}')
-
         return render_template('registro.html',form=frm, titulo='Registro')
     elif frm.reserva.data:
         nom = escape(request.form['nombre'])
@@ -102,12 +101,12 @@ def registro():
         dateOut = escape(request.form['fechaOut'])
         tipoHab = escape(request.form['tipoHab'])
         numHab = escape(request.form['numeroHab'])
-    # if frm.reserva.data:
+        
         flash('Realizar consulta con: '+ nom + ' / ' + ape + ' / ' + tipoDoc + ' / ' + doc + ' / ' + dateIn + ' / ' + dateOut + ' / ' + tipoHab + ' / ' + numHab)
         print(f"Realizar consulta con: '+ {{ nom }} + ' / ' + {{ ape }} + ' / ' + {{ tipoDoc }} + ' / ' + {{ doc }} + ' / ' + {{ dateIn }} + ' / ' + {{ dateOut }} + ' / ' + {{ tipoHab }} + ' / ' + {{ numHab }}")
 
-    # for msg in get_flashed_messages():
-    #     print(f'flashed_messages: {msg}')
+        # for msg in get_flashed_messages():
+        #     print(f'flashed_messages: {msg}')
 
     return render_template('registro.html',form=frm, titulo='Registro')
 
@@ -158,6 +157,12 @@ def comentarios():
     }
 
     return render_template('comentarios.html', **contexto)
+
+@app.route('/gracias/')
+def gracias():
+    if request.method == 'GET':
+        print('gerrrr')
+    return render_template('gracias.html', titulo='Gracias')
 
 if __name__ == '__main__':
     app.run()

@@ -151,15 +151,9 @@ footer > div {
 }
 
 .contentTxt {
-  position: relative;
-  width: 1000px;
-  margin: 50px;
   display: flex;
-  border-left: 1px solid black;
-}
-
-.contentTxt > .texto {
-  margin-top: 50px;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .contentTxt > div > h1 {
@@ -172,6 +166,11 @@ footer > div {
   margin: 20px;
   padding: 20px;
   color: black;
+}
+
+#img-home {
+  max-height: 284px;
+  min-width: 384px;
 }
 
 .habitTitle {
