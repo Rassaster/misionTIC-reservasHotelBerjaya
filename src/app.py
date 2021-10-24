@@ -90,7 +90,6 @@ def registro():
     usr = session['usuario']
 
     if request.method == 'GET':
-        # flash('INFO: Sesion iniciada para: ' + usr)
         print(f'INFO: Sesion iniciada para: {usr}')
 
         return render_template('registro.html',form=frm, titulo='Registro')

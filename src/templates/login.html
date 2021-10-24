@@ -35,13 +35,15 @@
 						<button type="button" class="btn btn-primary">Registarse</button>
 					</a>
 				</div>
-				{% if msg in get_flashed_messages() %}
-					<div class="row btnRow">
-						{% for msg in get_flashed_messages() %}
-							<div class='flash'>{{ msg }}</div>
+				{% with messages = get_flashed_messages() %}
+					{% if messages %}
+						<div class="row btnRow">
+						{% for message in messages %}
+							<div class='flash'>{{ message }}</div>
 						{% endfor %}
-					</div>
-				{% endif %}
+						</div>
+					{% endif %}
+				{% endwith %}				
 			</div>
 		</div>
 	</div>
