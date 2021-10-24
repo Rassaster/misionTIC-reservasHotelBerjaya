@@ -94,35 +94,20 @@ def registro():
 		ape = str(escape(request.form['apellido']))
 		tipoDoc = str(escape(request.form['tipoDoc']))
 		doc = int(escape(request.form['documento']))
-		dateIn = str(escape(request.form['fechaIn']))
-		dateOut = str(escape(request.form['fechaOut']))
-		tipoHab = str(escape(request.form['tipoHab']))
-		numHab = int(escape(request.form['numeroHab']))
 
 		try:
-			# type(usuario) is str
-			# type(contrasena) is str
-			# type(estado) is str
-			# type(calific) is int
-			# type(comen) is str
-			# type(pago) is bool
-			# type(rol) is str
-			# precio solo se LEE
+			if isinstance(nom, str) and isinstance(ape, str) and isinstance(tipoDoc, str) and isinstance(doc, int):
+				print('555try')
+				sql = f"INSERT INTO usuarios (usuario, nombre, apellido, tipo_documento, numero_documento) VALUES (?, ?, ?, ?, ?)"
+				res = accion(sql, (usr, nom, ape, tipoDoc, doc))
 
-			# hay que validar que el numero de cc sea nuevo
-			# de donde saco user pass?
-			# https://getbootstrap.com/docs/5.0/forms/validation/ server side
-
-			# creo que podria quitar la validacion aqui porque estoy casteando arriba y elevar una exepcion arriba seria mejor
-			if isinstance(nom, str) and isinstance(ape, str) and isinstance(tipoDoc, str) and isinstance(doc, int) and isinstance(dateIn, str) and isinstance(dateOut, str) and isinstance(tipoHab, str) and isinstance(numHab, int):
-				sql = f"INSERT INTO fullTable (nombre, apellido, tipo_doc, num_doc, fecha_in, fecha_sal, caract, num_hab) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
-				res = accion(sql, (nom, ape, tipoDoc, doc, dateIn, dateOut, tipoHab, numHab))
-
+				print('555if')
 				if res != 0:
+					print('flash')
 					flash('INFO: Datos almacenados con exito')
 					return redirect('/registro/')
 				else:
-					flash('ERROR: Por favor reintente')
+					flash('ERROR: No se pudieron guardar los datos')
 			else:
 				print('TYPES NOT MATCH')
 		except Exception as ex:

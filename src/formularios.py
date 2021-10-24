@@ -13,11 +13,6 @@ class Registro(FlaskForm):
 	apellido = TextField('Apellido')
 	tipoDoc = SelectField(u'Tipo de documento', choices=[('Cedula'), ('Pasaporte'), ('Cedula de extranjeria')])
 	documento = TextField('Documento')
-	fechaIn = DateField('Fecha de Entrada')
-	fechaOut = DateField('Fecha de Salida')
-	tipoHab = SelectField(u'Tipo de Habitacion', choices=[('Familiar'), ('Deluxe'), ('Emperatriz')])
-	numeroHab = TextField('Numero Habitacion')
-	precioHab = TextField('Precio Habitacion')
 	reserva = SubmitField('Ingresar')
 
 class NuevoUsr(FlaskForm):    
@@ -25,3 +20,12 @@ class NuevoUsr(FlaskForm):
 	passn = PasswordField('Contraseña *', validators = [InputRequired(message='La clave es requerida')])
 	passv = PasswordField('Verifique *', validators = [InputRequired(message='La verificación de clave es requerida'), EqualTo(passn,'La nueva clave y su verificación no corresponden')])
 	enviar = SubmitField('Ingresar')
+
+# class otro(FlaskForm):
+# 	fechaIn = DateField('Fecha de Entrada')
+# 	fechaOut = DateField('Fecha de Salida')
+# 	tipoHab = SelectField(u'Tipo de Habitacion', choices=[('Familiar'), ('Deluxe'), ('Emperatriz')])
+# 	numeroHab = TextField('Numero Habitacion')
+# 	precioHab = TextField('Precio Habitacion')
+# 	reserva = SubmitField('Ingresar')
+	# rol = TextField('Documento')
