@@ -45,7 +45,7 @@ def login():
 					return redirect('/login/')
 
 		except Exception as ex:
-				print(ex)
+			print(ex)
 
 	return render_template('login.html', form = frm, titulo = 'Login')
 
@@ -86,9 +86,7 @@ def nuevoUsr():
 				else:
 					flash('ERROR: Por favor reintente')
 		except Exception as ex:
-				print(ex)
-
-		return render_template('nuevoUsr.html', form = frm, titulo = 'Nuevo usuario')
+			print(ex)
 
 	return render_template('nuevoUsr.html', form = frm, titulo = 'Nuevo usuario')
 
@@ -102,44 +100,39 @@ def registro():
 		ape = str(escape(request.form['apellido']))
 		tipoDoc = str(escape(request.form['tipoDoc']))
 		doc = int(escape(request.form['documento']))
-		dateIn = escape(request.form['fechaIn'])
-		dateOut = escape(request.form['fechaOut'])
-		tipoHab = escape(request.form['tipoHab'])
-		numHab = escape(request.form['numeroHab'])
+		dateIn = str(escape(request.form['fechaIn']))
+		dateOut = str(escape(request.form['fechaOut']))
+		tipoHab = str(escape(request.form['tipoHab']))
+		numHab = int(escape(request.form['numeroHab']))
 
 		try:
-			# sql = f"INSERT INTO fullTable (nombre, apellido) VALUES ('{nom}', '{ape}')"
 			# type(usuario) is str
 			# type(contrasena) is str
-			# type(num_hab) is int
-			# type(caract) is str
-			# type(precio) is int
 			# type(estado) is str
-			# type(fecha_in) is str
-			# type(fecha_sal) is str
 			# type(calific) is int
 			# type(comen) is str
 			# type(pago) is bool
 			# type(rol) is str
+			# precio solo se LEE
 
-			if isinstance(nom, str) and isinstance(ape, str) and isinstance(tipoDoc, str) and isinstance(doc, int) : 
-				sql = f"INSERT INTO fullTable (nombre, apellido, tipo_doc, num_doc) VALUES (?, ?, ?, ?)"
-				res = accion(sql, (nom, ape, tipoDoc, doc))
+			# hay que validar que el numero de cc sea nuevo
+			# de donde saco user pass?
+			# https://getbootstrap.com/docs/5.0/forms/validation/ server side
+
+			# creo que podria quitar la validacion aqui porque estoy casteando arriba y elevar una exepcion arriba seria mejor
+			if isinstance(nom, str) and isinstance(ape, str) and isinstance(tipoDoc, str) and isinstance(doc, int) and isinstance(dateIn, str) and isinstance(dateOut, str) and isinstance(tipoHab, str) and isinstance(numHab, int):
+				sql = f"INSERT INTO fullTable (nombre, apellido, tipo_doc, num_doc, fecha_in, fecha_sal, caract, num_hab) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+				res = accion(sql, (nom, ape, tipoDoc, doc, dateIn, dateOut, tipoHab, numHab))
+
 				if res != 0:
-					print('INFO: Datos almacenados con exito')
 					flash('INFO: Datos almacenados con exito')
-					# return redirect('/registro/')
-					return redirect('/gracias/')
+					return redirect('/registro/')
 				else:
-					print('ELSE error')
 					flash('ERROR: Por favor reintente')
 			else:
 				print('TYPES NOT MATCH')
 		except Exception as ex:
-				print(f'ex100: {ex}')
-
-		flash(f"Realizar consulta con: { nom }, { ape }, { tipoDoc }, { doc }, { dateIn }, { dateOut }, { tipoHab }, { numHab },")
-		print(f"Realizar consulta con: { nom }, { ape }, { tipoDoc }, { doc }, { dateIn }, { dateOut }, { tipoHab }, { numHab },")
+			print(f'ex100: {ex}')
 
 	print(f'INFO: Sesion iniciada para: {usr}')
 	return render_template('registro.html', form = frm, titulo = 'Registro')
@@ -186,12 +179,12 @@ def comentarios():
 			msg = 'Se muestran los datos'
 		
 		contexto = {
-				'data' : dat, 
-				'qRes' : msg, 
-				'titulo' : 'Comentarios'
+			'data' : dat, 
+			'qRes' : msg, 
+			'titulo' : 'Comentarios'
 		}
 	except Exception as ex:
-			print(ex)
+		print(ex)
 
 	return render_template('comentarios.html', **contexto)
 

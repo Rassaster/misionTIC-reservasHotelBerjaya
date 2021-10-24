@@ -9,15 +9,15 @@ class Login(FlaskForm):
 	logIn = SubmitField('Ingresar')
 
 class Registro(FlaskForm):    
-	nombre = TextField('Nombre ')
-	apellido = TextField('Apellido ')
+	nombre = TextField('Nombre')
+	apellido = TextField('Apellido')
 	tipoDoc = SelectField(u'Tipo de documento', choices=[('Cedula'), ('Pasaporte'), ('Cedula de extranjeria')])
-	documento = TextField('Documento ')
-	fechaIn = DateField('Fecha de Entrada ')
-	fechaOut = DateField('Fecha de Salida ')
+	documento = TextField('Documento')
+	fechaIn = DateField('Fecha de Entrada')
+	fechaOut = DateField('Fecha de Salida')
 	tipoHab = SelectField(u'Tipo de Habitacion', choices=[('Familiar'), ('Deluxe'), ('Emperatriz')])
-	numeroHab = TextField('Numero Habitacion ')
-	precioHab = TextField('Precio Habitacion ')
+	numeroHab = TextField('Numero Habitacion')
+	precioHab = TextField('Precio Habitacion')
 	reserva = SubmitField('Ingresar')
 
 class NuevoUsr(FlaskForm):    
