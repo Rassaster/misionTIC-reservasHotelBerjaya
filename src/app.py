@@ -20,29 +20,22 @@ def home():
 def login():
 	frm = Login()
 
-	if request.method == 'GET':
-		return render_template('login.html', form=frm, titulo='Login')
-	elif frm.logIn.data:  
+	if frm.logIn.data:  
 		ema = escape(frm.email.data.strip())
 		cla = escape(frm.clave.data.strip())
 
 		try:
-			sql = f'SELECT usuario, contrasena FROM fullTable WHERE usuario="{ema}"'
+			sql = f"SELECT usuario, contrasena FROM credenciales WHERE usuario = '{ema}'"
 			res = seleccion(sql)
 
-			if len(res) == 0:
-				flash('ERROR: Email o clave invalidas')
-				return redirect('/login/')
-			else:
-				claveHash = res[0][1]
-				if check_password_hash(claveHash, cla):
-					session.clear()
-					session['usuario'] = res[0][0]
-					session['contrasena'] = res[0][1]
-					return redirect('/registro/')
-				else:
-					flash('ERROR: Email o clave invalidas')
-					return redirect('/login/')
+			if len(res) != 0 and check_password_hash(res[0][1], cla):
+				session.clear()
+				session['usuario'] = res[0][0]
+				session['contrasena'] = res[0][1]
+				return redirect('/registro/')
+
+			flash('ERROR: Email o clave invalidas')
+			return redirect('/login/')
 
 		except Exception as ex:
 			print(ex)
