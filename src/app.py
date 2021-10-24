@@ -58,7 +58,7 @@ def nuevoUsr():
 		clave2 = escape(request.form['passv'])
 
 		try:
-			sql = f"SELECT COUNT(usuario) FROM fullTable WHERE usuario='{email}'"
+			sql = f"SELECT COUNT(usuario) FROM credenciales WHERE usuario='{email}'"
 			res = seleccion(sql)
 
 			if res[0][0] > 0:
@@ -72,8 +72,9 @@ def nuevoUsr():
 			elif clave1 != clave2:
 				flash('ERROR: La clave y la verificación no coinciden')
 			else:
-				sql = f"INSERT INTO fullTable (usuario, contrasena) VALUES (?, ?)"
+				sql = f"INSERT INTO credenciales (usuario, contrasena) VALUES (?, ?)"
 				pwd = generate_password_hash(clave1)
+				print(f'TEST: email: {email}, pwd: {pwd}')
 				res = accion(sql,(email, pwd))
 				print(f'res: {res}')
 

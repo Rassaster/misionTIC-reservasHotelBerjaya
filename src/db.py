@@ -1,5 +1,5 @@
 import sqlite3
-DB_URL = 'bd/test2.db'
+DB_URL = 'bd/berjaya2.db'
 
 def accion(sql, data) -> int:
 	""" Se encarga de ejecutar una consulta de accion (INSERT, DELETE, UPDATE) """
@@ -7,7 +7,7 @@ def accion(sql, data) -> int:
 		with sqlite3.connect(DB_URL) as con:
 			cur = con.cursor()
 			sal = cur.execute(sql, data).rowcount
-			print(f'accion: {sal}')
+			print(f'Accion: {sal}')
 			if sal != 0:
 				con.commit()
 	except Exception as ex:
@@ -21,7 +21,7 @@ def seleccion(query) -> list:
 		with sqlite3.connect(DB_URL) as con:
 			cur = con.cursor()
 			sal = cur.execute(query).fetchall()
-			print(f'seleccion: {sal}')
+			print(f'Seleccion: {sal}')
 	except Exception as ex:
 		print(f'Exception: {ex}')
 		sal = []
