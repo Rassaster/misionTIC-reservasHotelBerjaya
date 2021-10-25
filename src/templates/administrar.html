@@ -14,27 +14,27 @@
 		<form class="registroForm" action="{{ url_for('registro') }}" method="POST">
 			<div class="row">
 				<div class="form-group col-6">
-					<label for="fieldNombre">{{ form.nombre.label }}</label>
-					{{ form.nombre(class_="form-control", minlength=1, maxlength=50) }}
+					<label for="fieldNombre">{{ form.numeroHab.label }}</label>
+					{{ form.numeroHab(class_="form-control", minlength=1, maxlength=50) }}
 				</div>
 				<div class="form-group col-6">
-					<label for="fieldApellido">{{ form.apellido.label }}</label>
-					{{ form.apellido(class_="form-control", minlength=1, maxlength=50) }}
+					<label for="fieldApellido">{{ form.estado.label }}</label>
+					{{ form.estado(class_="form-control", minlength=1, maxlength=50) }}
 				</div>
 			</div>
 			<div class="row">
 				<div class="form-group col-6">
-					<label for="fieldTipoDocumento">{{ form.tipoDoc.label }}</label>
-					{{ form.tipoDoc(class_="form-control") }}
+					<label for="fieldTipoDocumento">{{ form.precio.label }}</label>
+					{{ form.precio(class_="form-control") }}
 				</div>
 				<div class="form-group col-6">
-					<label for="fieldTipoDocumento">{{ form.documento.label }}</label>
-					{{ form.documento(class_="form-control", minlength=1, maxlength=20) }}
+					<label for="fieldTipoDocumento">{{ form.caract.label }}</label>
+					{{ form.caract(class_="form-control", minlength=1, maxlength=20) }}
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-4">
-					{{ form.reserva(class_="btn btn-primary") }}
+					{{ form.boton(class_="btn btn-primary") }}
 				</div>
 			</div>
 		</form>

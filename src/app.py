@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash, redirect, session
 from flask.globals import session
-from formularios import Login, Registro, NuevoUsr
+from formularios import Login, Registro, NuevoUsr, HabitacionesForm
 from utils import pass_valido
 from markupsafe import escape
 import os
@@ -137,18 +137,19 @@ def habitaciones():
 
 @app.route('/contactanos/')
 def contactanos():
-	return render_template('contactanos.html', titulo='Contactanos')
+	return render_template('contactanos.html', titulo = 'Contactanos')
 
-@app.route('/instalaciones/')
-def instalaciones():
-	return render_template('instalaciones.html')
+@app.route('/administrar/')
+def administrar():
+	frm = HabitacionesForm()
+	return render_template('administrar.html', form = frm, titulo = 'Administrar')
 
 @app.route('/comentarios/')
 def comentarios():
 	habitacion = escape(request.args.get('habitacion', 'error'))
 
 	try:
-		sql = f"SELECT nombre, apellido, comen, calific FROM fullTable WHERE caract='{habitacion}'"
+		sql = f"SELECT nombre, apellido, comen, calific FROM fullTable WHERE caract = '{habitacion}'"
 		res = seleccion(sql)
 		if len(res) == 0:
 			dat = None
@@ -169,7 +170,7 @@ def comentarios():
 
 @app.route('/gracias/')
 def gracias():
-	return render_template('gracias.html', titulo='Gracias')
+	return render_template('gracias.html', titulo = 'Gracias')
 
 if __name__ == '__main__':
 	app.run()

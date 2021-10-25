@@ -21,7 +21,14 @@ class NuevoUsr(FlaskForm):
 	passv = PasswordField('Verifique *', validators = [InputRequired(message='La verificación de clave es requerida'), EqualTo(passn,'La nueva clave y su verificación no corresponden')])
 	enviar = SubmitField('Ingresar')
 
-# class otro(FlaskForm):
+class HabitacionesForm(FlaskForm):
+	numeroHab = TextField('Numero Habitacion')
+	estado = TextField('Estado')
+	precio = TextField('Precio')
+	caract = TextField('Caracteristicas')
+	boton = SubmitField('Ingresar')
+
+# 	class otro(FlaskForm):
 # 	fechaIn = DateField('Fecha de Entrada')
 # 	fechaOut = DateField('Fecha de Salida')
 # 	tipoHab = SelectField(u'Tipo de Habitacion', choices=[('Familiar'), ('Deluxe'), ('Emperatriz')])
