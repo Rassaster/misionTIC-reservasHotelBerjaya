@@ -26,7 +26,7 @@ class HabitacionesForm(FlaskForm):
 	estado = TextField('Estado')
 	precio = TextField('Precio')
 	caract = TextField('Caracteristicas')
-	boton = SubmitField('Ingresar')
+	boton = SubmitField('Guardar')
 
 # 	class otro(FlaskForm):
 # 	fechaIn = DateField('Fecha de Entrada')
