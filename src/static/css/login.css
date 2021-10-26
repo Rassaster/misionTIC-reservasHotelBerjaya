@@ -55,5 +55,8 @@
 
 #adminBox {
 	margin: 20px 0px;
+}
+
+#adminBox > a {
 	text-decoration: none;
 }
