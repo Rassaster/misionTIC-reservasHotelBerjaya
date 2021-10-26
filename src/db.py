@@ -11,7 +11,7 @@ def accion(sql, data) -> int:
 			if sal != 0:
 				con.commit()
 	except Exception as ex:
-		print(f'Exception: {ex}')
+		print(f'ExceptionAccion: {ex}')
 		sal = 0
 	return sal
 
@@ -21,8 +21,7 @@ def seleccion(query) -> list:
 		with sqlite3.connect(DB_URL) as con:
 			cur = con.cursor()
 			sal = cur.execute(query).fetchall()
-			print(f'Seleccion: {sal}')
 	except Exception as ex:
-		print(f'Exception: {ex}')
+		print(f'ExceptionSeleccion: {ex}')
 		sal = []
 	return sal

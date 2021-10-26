@@ -22,11 +22,11 @@ class NuevoUsr(FlaskForm):
 	enviar = SubmitField('Ingresar')
 
 class HabitacionesForm(FlaskForm):
-	numeroHab = TextField('Numero Habitacion')
-	estado = TextField('Estado')
+	numeroHab = TextField('Numero de Habitacion')
 	precio = TextField('Precio')
 	caract = TextField('Caracteristicas')
-	boton = SubmitField('Guardar')
+	guardar = SubmitField('Guardar')
+	actuali = SubmitField('Actualizar')
 
 # 	class otro(FlaskForm):
 # 	fechaIn = DateField('Fecha de Entrada')

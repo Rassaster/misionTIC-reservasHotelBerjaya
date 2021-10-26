@@ -139,9 +139,35 @@ def habitaciones():
 def contactanos():
 	return render_template('contactanos.html', titulo = 'Contactanos')
 
-@app.route('/administrar/')
+@app.route('/administrar/', methods=['GET', 'POST'])
 def administrar():
 	frm = HabitacionesForm()
+
+	if request.method == 'POST':
+		try:
+			numHab = int(escape(request.form['numeroHab']))
+			carac = escape(request.form['caract'])
+			precio = escape(request.form['precio'])
+			
+			habs = seleccion(f"SELECT numero_habitacion FROM habitaciones WHERE numero_habitacion = {numHab}")
+
+			if len(str(numHab)) != 0 and len(carac) != 0 and len(precio) != 0:
+				if len(habs) == 0:
+					sqlHab = "INSERT INTO habitaciones (numero_habitacion, precio, caracteristicas) VALUES (?, ?, ?)"
+					resHab = accion(sqlHab, (numHab, carac, precio))
+
+					if resHab > 0:
+						print('Se guardaron los datos de la habitacion con exito')
+						flash('Se guardaron los datos de la habitacion con exito')
+			
+			else:
+				print('Por favor llene todos los campos')
+				flash('Por favor llene todos los campos')
+
+		except ValueError as ve:
+			print(f'Numero de habitacion debe ser un numero: {ve}')
+			flash(f'Numero de habitacion debe ser un numero: {ve}')
+
 	return render_template('administrar.html', form = frm, titulo = 'Administrar')
 
 @app.route('/comentarios/')
