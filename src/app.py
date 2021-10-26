@@ -147,26 +147,37 @@ def administrar():
 		try:
 			numHab = int(escape(request.form['numeroHab']))
 			carac = escape(request.form['caract'])
-			precio = escape(request.form['precio'])
+			precio = int(escape(request.form['precio']))
+			guardar = request.form.get('guardar', False)
+			actuali = request.form.get('actuali', False)
 			
 			habs = seleccion(f"SELECT numero_habitacion FROM habitaciones WHERE numero_habitacion = {numHab}")
 
-			if len(str(numHab)) != 0 and len(carac) != 0 and len(precio) != 0:
+			if len(str(numHab)) != 0 and len(carac) != 0 and len(str(precio)) != 0:
 				if len(habs) == 0:
-					sqlHab = "INSERT INTO habitaciones (numero_habitacion, precio, caracteristicas) VALUES (?, ?, ?)"
-					resHab = accion(sqlHab, (numHab, carac, precio))
+					if guardar:
+						insHab = "INSERT INTO habitaciones (numero_habitacion, precio, caracteristicas) VALUES (?, ?, ?)"
+						resInsHab = accion(insHab, (numHab, carac, precio))
+						if resInsHab > 0:
+							flash('Se guardaron los datos de la habitacion con exito')
+					else:
+						flash('La habitacion no existe, intente guardar')
+				
+				else:
+					if actuali:
+						resUpdHab = accion("UPDATE habitaciones SET precio = ?, caracteristicas = ? WHERE numero_habitacion = ?", (precio, carac, numHab))
+						if resUpdHab == 0:
+							flash('No se pudo actualizar la informacion')
+						else:
+							flash('La informacion para la habitacion ha sido actualizada')
+					else:
+						flash('La habitacion ya existe, intente actualizar')
 
-					if resHab > 0:
-						print('Se guardaron los datos de la habitacion con exito')
-						flash('Se guardaron los datos de la habitacion con exito')
-			
 			else:
-				print('Por favor llene todos los campos')
 				flash('Por favor llene todos los campos')
 
 		except ValueError as ve:
-			print(f'Numero de habitacion debe ser un numero: {ve}')
-			flash(f'Numero de habitacion debe ser un numero: {ve}')
+			flash(f'La informacion ingresada no es valida o esta incompleta')
 
 	return render_template('administrar.html', form = frm, titulo = 'Administrar')
 

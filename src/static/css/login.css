@@ -29,6 +29,10 @@
   color: black;
 }
 
+.flash {
+  text-align: center;
+}
+
 #matchForm {
 	display: flex;
 	flex-direction: column;

@@ -7,7 +7,6 @@ def accion(sql, data) -> int:
 		with sqlite3.connect(DB_URL) as con:
 			cur = con.cursor()
 			sal = cur.execute(sql, data).rowcount
-			print(f'Accion: {sal}')
 			if sal != 0:
 				con.commit()
 	except Exception as ex:

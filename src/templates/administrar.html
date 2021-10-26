@@ -16,19 +16,19 @@
 			<div class="row fieldRow">
 				<div class="form-group">
 					<label for="fieldNombre">{{ form.numeroHab.label }}</label>
-					{{ form.numeroHab(class_="form-control") }}
+					{{ form.numeroHab(class_="form-control", placeholder="000") }}
 				</div>
 			</div>
 			<div class="row fieldRow">
 				<div class="form-group">
 					<label for="fieldTipoDocumento">{{ form.caract.label }}</label>
-					{{ form.caract(class_="form-control") }}
+					{{ form.caract(class_="form-control", placeholder="habitacion") }}
 				</div>
 			</div>
 			<div class="row fieldRow">
 				<div class="form-group">
 					<label for="fieldTipoDocumento">{{ form.precio.label }}</label>
-					{{ form.precio(class_="form-control") }}
+					{{ form.precio(class_="form-control", placeholder="$$$") }}
 				</div>
 			</div>
 			<div class="row btnRow">
@@ -36,6 +36,15 @@
 				{{ form.actuali(class_="btn btn-primary") }}
 			</div>
 		</form>
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				<div id="message" class="row">
+				{% for message in messages %}
+					<div class='flash'>{{ message }}</div>
+				{% endfor %}
+				</div>
+			{% endif %}
+		{% endwith %}
 	</div>
 </div>
 {% endblock %}
