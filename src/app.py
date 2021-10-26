@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, flash, redirect, session
-# from flask.globals import session
+from flask.globals import session
 from formularios import Login, Registro, NuevoUsr
 from utils import pass_valido
 from markupsafe import escape
@@ -26,7 +26,7 @@ def login():
         ema = escape(frm.email.data.strip())
         cla = escape(frm.clave.data.strip())
 
-        sql = f'SELECT usuario, contrasena FROM fullTable WHERE usuario="{ema}"'
+        sql = f'SELECT usuario, contrasena FROM credenciales WHERE usuario="{ema}"'
         res = seleccion(sql)
 
         if len(res) == 0:
@@ -56,7 +56,7 @@ def nuevoUsr():
         clave1 = escape(request.form['passn'])
         clave2 = escape(request.form['passv'])
 
-        sql = f"SELECT COUNT(usuario) FROM fullTable WHERE usuario='{email}'"
+        sql = f"SELECT COUNT(usuario) FROM credenciales WHERE usuario='{email}'"
         res = seleccion(sql)
 
         if res[0][0] > 0:
@@ -70,7 +70,7 @@ def nuevoUsr():
         elif clave1 != clave2:
             flash('ERROR: La clave y la verificación no coinciden')
         else:
-            sql = f"INSERT INTO fullTable (usuario, contrasena) VALUES (?, ?)"
+            sql = f"INSERT INTO credenciales (usuario, contrasena) VALUES (?, ?)"
             pwd = generate_password_hash(clave1)
             res = accion(sql,(email, pwd))
             if res != 0:
@@ -91,6 +91,7 @@ def registro():
 
     if request.method == 'GET':
         print(f'INFO: Sesion iniciada para: {usr}')
+
         return render_template('registro.html',form=frm, titulo='Registro')
     elif frm.reserva.data:
         nom = escape(request.form['nombre'])
@@ -101,12 +102,21 @@ def registro():
         dateOut = escape(request.form['fechaOut'])
         tipoHab = escape(request.form['tipoHab'])
         numHab = escape(request.form['numeroHab'])
-        
-        flash('Realizar consulta con: '+ nom + ' / ' + ape + ' / ' + tipoDoc + ' / ' + doc + ' / ' + dateIn + ' / ' + dateOut + ' / ' + tipoHab + ' / ' + numHab)
-        print(f"Realizar consulta con: '+ {{ nom }} + ' / ' + {{ ape }} + ' / ' + {{ tipoDoc }} + ' / ' + {{ doc }} + ' / ' + {{ dateIn }} + ' / ' + {{ dateOut }} + ' / ' + {{ tipoHab }} + ' / ' + {{ numHab }}")
+    # if frm.reserva.data:
+        sql1 = f"INSERT INTO usuarios (nombre, apellido, tipo_documento, numero_documento, usuario) VALUES (?, ?, ?, ?, ?)"
+        res1 = accion(sql1,(nom, ape, tipoDoc, doc, usr))
+        sql3 = f'SELECT _id FROM usuarios WHERE usuario="{usr}"'
+        res3 = seleccion(sql3)
+        sql2 = f"INSERT INTO registros (cliente_id, habitacion_id, fecha_ingreso, fecha_salida) VALUES (?, ?, ?, ?)"
+        res2 = accion(sql2,(res3[0][0], '1', dateIn, dateOut))
+        if res1 != 0 and res2 != 0:
+            flash('INFO: Datos almacenados con exito')
+            # return redirect('/registro/')
+        else:
+            flash('ERROR: Por favor reintente')
 
-        # for msg in get_flashed_messages():
-        #     print(f'flashed_messages: {msg}')
+    # for msg in get_flashed_messages():
+    #     print(f'flashed_messages: {msg}')
 
     return render_template('registro.html',form=frm, titulo='Registro')
 
@@ -157,12 +167,6 @@ def comentarios():
     }
 
     return render_template('comentarios.html', **contexto)
-
-@app.route('/gracias/')
-def gracias():
-    if request.method == 'GET':
-        print('gerrrr')
-    return render_template('gracias.html', titulo='Gracias')
 
 if __name__ == '__main__':
     app.run()
