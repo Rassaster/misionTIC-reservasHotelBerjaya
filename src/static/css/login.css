@@ -52,3 +52,8 @@
 #message {
 	margin-top: 20px;
 }
+
+#adminBox {
+	margin: 20px 0px;
+	text-decoration: none;
+}

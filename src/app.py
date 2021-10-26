@@ -139,8 +139,12 @@ def habitaciones():
 def contactanos():
 	return render_template('contactanos.html', titulo = 'Contactanos')
 
-@app.route('/administrar/', methods=['GET', 'POST'])
+@app.route('/administrar/')
 def administrar():
+	return render_template('administrar.html', titulo = 'Admin')
+
+@app.route('/adminHabitaciones/', methods=['GET', 'POST'])
+def adminHabitaciones():
 	frm = HabitacionesForm()
 
 	if request.method == 'POST':
@@ -179,7 +183,7 @@ def administrar():
 		except ValueError as ve:
 			flash(f'La informacion ingresada no es valida o esta incompleta')
 
-	return render_template('administrar.html', form = frm, titulo = 'Administrar')
+	return render_template('adminHabitaciones.html', form = frm, titulo = 'Admin')
 
 @app.route('/comentarios/')
 def comentarios():
