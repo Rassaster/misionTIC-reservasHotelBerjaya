@@ -94,22 +94,35 @@ def registro():
 		ape = str(escape(request.form['apellido']))
 		tipoDoc = str(escape(request.form['tipoDoc']))
 		doc = int(escape(request.form['documento']))
+		guardar = request.form.get('guardar', False)
+		actuali = request.form.get('actuali', False)
 
 		try:
 			if isinstance(nom, str) and isinstance(ape, str) and isinstance(tipoDoc, str) and isinstance(doc, int):
-				print('555try')
-				sql = f"INSERT INTO usuarios (usuario, nombre, apellido, tipo_documento, numero_documento) VALUES (?, ?, ?, ?, ?)"
-				res = accion(sql, (usr, nom, ape, tipoDoc, doc))
+				numUsr = seleccion(f'SELECT COUNT(usuario) FROM usuarios WHERE usuario = {usr}')
 
-				print('555if')
-				if res != 0:
-					print('flash')
-					flash('INFO: Datos almacenados con exito')
-					return redirect('/registro/')
+				if numUsr == 0:
+					if guardar:
+						sql = f"INSERT INTO usuarios (usuario, nombre, apellido, tipo_documento, numero_documento) VALUES (?, ?, ?, ?, ?)"
+						res = accion(sql, (usr, nom, ape, tipoDoc, doc))
+						if res != 0:
+							flash('INFO: Datos almacenados con exito')
+							return redirect('/registro/')
+						else:
+							flash('ERROR: No se pudieron guardar los datos')
+
 				else:
-					flash('ERROR: No se pudieron guardar los datos')
-			else:
-				print('TYPES NOT MATCH')
+					if actuali:
+						resUpdUsr = accion("UPDATE usuarios SET nombre = ?, apellido = ?, tipo_documento = ?, numero_documento = ? WHERE usuario = ?", (nom, ape, tipoDoc, doc, usr))
+						if resUpdUsr == 0:
+							flash('No se pudo actualizar la informacion')
+						else:
+							flash('La informacion del usuario ha sido actualizada')
+					else:
+						flash(f'El usuario {usr} ya existe, use actualizar si quiere cambiar la informacion actual')
+
+			# else:
+			# 	print('TYPES NOT MATCH')
 		except Exception as ex:
 			print(f'ex100: {ex}')
 

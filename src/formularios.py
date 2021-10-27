@@ -13,12 +13,13 @@ class Registro(FlaskForm):
 	apellido = TextField('Apellido')
 	tipoDoc = SelectField(u'Tipo de documento', choices=[('Cedula'), ('Pasaporte'), ('Cedula de extranjeria')])
 	documento = TextField('Documento')
-	reserva = SubmitField('Ingresar')
+	guardar = SubmitField('Guardar')
+	actuali = SubmitField('Actualizar')
 
 class NuevoUsr(FlaskForm):    
-	email = EmailField('E-Mail *', validators = [InputRequired(message='El email es requerido')])
-	passn = PasswordField('Contraseña *', validators = [InputRequired(message='La clave es requerida')])
-	passv = PasswordField('Verifique *', validators = [InputRequired(message='La verificación de clave es requerida'), EqualTo(passn,'La nueva clave y su verificación no corresponden')])
+	email = EmailField('E-Mail', validators = [InputRequired(message='El email es requerido')])
+	passn = PasswordField('Contraseña', validators = [InputRequired(message='La clave es requerida')])
+	passv = PasswordField('Confirmar Contraseña', validators = [InputRequired(message='La verificación de clave es requerida'), EqualTo(passn,'La nueva clave y su verificación no corresponden')])
 	enviar = SubmitField('Ingresar')
 
 class HabitacionesForm(FlaskForm):

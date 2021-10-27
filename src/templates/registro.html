@@ -34,10 +34,20 @@
 			</div>
 			<div class="row">
 				<div class="col-4">
-					{{ form.reserva(class_="btn btn-primary") }}
+					{{ form.guardar(class_ = "btn btn-primary") }}
+					{{ form.actuali(class_ = "btn btn-primary") }}
 				</div>
 			</div>
 		</form>
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				<div id="message" class="row">
+				{% for message in messages %}
+					<div class='flash'>{{ message }}</div>
+				{% endfor %}
+				</div>
+			{% endif %}
+		{% endwith %}
 	</div>
 </div>
 {% endblock %}
