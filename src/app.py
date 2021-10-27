@@ -206,18 +206,19 @@ def reservas():
 			hab = escape((request.form['habitacion']).lower())
 			fechaIn = escape((request.form['fechaIn'])) # 2021-10-27
 			fechaOut = escape((request.form['fechaOut']))
-			guardar = request.form.get('guardar', False)
 
 			docSel = seleccion(f"SELECT COUNT(numero_documento) FROM usuarios WHERE numero_documento = {doc}")
 			habSel = seleccion(f"SELECT COUNT(numero_habitacion) FROM habitaciones WHERE numero_habitacion = {hab}")
 
 			if len(str(doc)) != 0 and len(hab) != 0 and 8 < len(str(fechaIn)) < 11 and 8 < len(str(fechaOut)) < 11:
-				if len(docSel) > 0 :
-					if len(habSel) > 0:
-						insReg = "INSERT INTO registros (cliente_id, habitacion_id, fecha_ingreso,fecha_salida) VALUES (?, ?, ?, ?)"
+				if docSel[0][0] > 0:
+					if habSel[0][0] > 0:
+						insReg = "INSERT INTO registros (cliente_id, habitacion_id, fecha_ingreso, fecha_salida) VALUES (?, ?, ?, ?)"
 						resInsReg = accion(insReg, (doc, hab, fechaIn, fechaOut))
 						if resInsReg > 0:
 							flash('Se guardaron los datos de la habitacion con exito')
+						else:
+							flash('No se pudieron guardar los datos')
 					else:
 						flash('La habitacion no existe')
 				else:
@@ -238,9 +239,37 @@ def adminUsuarios():
 def adminComentarios():
 	return render_template('adminComentarios.html')
 
-@app.route('/registroComentarios/')
+@app.route('/registroComentarios/', methods=['GET', 'POST'])
 def registroComentarios():
 	frm = ComentariosForm()
+
+	if request.method == 'POST':
+		try:
+			doc = int(escape(request.form['documento']))
+			hab = int(escape((request.form['habitacion'])))
+			cal = int(escape((request.form['calificacion'])))
+			com = escape((request.form['comentario']))
+
+			docSel = seleccion(f"SELECT COUNT(numero_documento) FROM usuarios WHERE numero_documento = {doc}")
+			habSel = seleccion(f"SELECT COUNT(numero_habitacion) FROM habitaciones WHERE numero_habitacion = {hab}")
+			# print(f'docSel: {docSel}')
+
+			if len(str(doc)) != 0 and len(str(hab)) != 0 and (0 < cal < 6) and len(com) != 0:
+				if docSel[0][0] > 0 and habSel[0][0] > 0:
+					insCom = "INSERT INTO comentarios (identificacion, habitacion, comentario, calificacion) VALUES (?, ?, ?, ?)"
+					resInsCom = accion(insCom, (doc, hab, cal, com))
+					if resInsCom > 0:
+						flash('Se guardo su comentario')
+					else:
+						flash('No se pudieron guardar los datos')
+				else:
+					flash('Documento o habitacion no existen en los registros')
+			else:
+				flash('Por favor llene todos los campos')
+
+		except ValueError as ve:
+			flash(f'La informacion ingresada no es valida o esta incompleta')
+				
 	return render_template('registroComentarios.html', form = frm, titulo = 'Comentarios')
 
 @app.route('/comentarios/')
