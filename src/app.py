@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash, redirect, session
 from flask.globals import session
-from formularios import Login, Registro, NuevoUsr, HabitacionesForm
+from formularios import Login, Registro, NuevoUsr, HabitacionesForm, ReservasForm
 from utils import pass_valido
 from markupsafe import escape
 import os
@@ -90,14 +90,14 @@ def registro():
 	usr = session['usuario']
 
 	if request.method == 'POST':
-		nom = str(escape(request.form['nombre']))
-		ape = str(escape(request.form['apellido']))
-		tipoDoc = str(escape(request.form['tipoDoc']))
-		doc = int(escape(request.form['documento']))
-		guardar = request.form.get('guardar', False)
-		actuali = request.form.get('actuali', False)
-
 		try:
+			nom = str(escape(request.form['nombre']))
+			ape = str(escape(request.form['apellido']))
+			tipoDoc = str(escape(request.form['tipoDoc']))
+			doc = int(escape(request.form['documento']))
+			guardar = request.form.get('guardar', False)
+			actuali = request.form.get('actuali', False)
+
 			if isinstance(nom, str) and isinstance(ape, str) and isinstance(tipoDoc, str) and isinstance(doc, int):
 				numUsr = seleccion(f'SELECT COUNT(usuario) FROM usuarios WHERE usuario = {usr}')
 
@@ -123,6 +123,8 @@ def registro():
 
 			# else:
 			# 	print('TYPES NOT MATCH')
+		except ValueError as ve:
+			flash(f'La informacion ingresada no es valida o esta incompleta')
 		except Exception as ex:
 			print(f'ex100: {ex}')
 
@@ -152,7 +154,7 @@ def habitaciones():
 def contactanos():
 	return render_template('contactanos.html', titulo = 'Contactanos')
 
-@app.route('/administrar/')
+@app.route('/administrar/', methods=['GET', 'POST'])
 def administrar():
 	return render_template('administrar.html', titulo = 'Admin')
 
@@ -163,7 +165,7 @@ def adminHabitaciones():
 	if request.method == 'POST':
 		try:
 			numHab = int(escape(request.form['numeroHab']))
-			carac = escape(request.form['caract'])
+			carac = escape((request.form['caract']).lower())
 			precio = int(escape(request.form['precio']))
 			guardar = request.form.get('guardar', False)
 			actuali = request.form.get('actuali', False)
@@ -173,7 +175,7 @@ def adminHabitaciones():
 			if len(str(numHab)) != 0 and len(carac) != 0 and len(str(precio)) != 0:
 				if len(habs) == 0:
 					if guardar:
-						insHab = "INSERT INTO habitaciones (numero_habitacion, precio, caracteristicas) VALUES (?, ?, ?)"
+						insHab = "INSERT INTO habitaciones (numero_habitacion, caracteristicas, precio) VALUES (?, ?, ?)"
 						resInsHab = accion(insHab, (numHab, carac, precio))
 						if resInsHab > 0:
 							flash('Se guardaron los datos de la habitacion con exito')
@@ -197,6 +199,15 @@ def adminHabitaciones():
 			flash(f'La informacion ingresada no es valida o esta incompleta')
 
 	return render_template('adminHabitaciones.html', form = frm, titulo = 'Admin')
+
+@app.route('/reservas/')
+def reservas():
+	frm = ReservasForm()
+	return render_template('reservas.html', form = frm, titulo = 'Reservas')
+
+@app.route('/adminUsuarios/')
+def adminUsuarios():
+	return render_template('adminUsuarios.html')
 
 @app.route('/comentarios/')
 def comentarios():

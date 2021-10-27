@@ -24,15 +24,24 @@ class NuevoUsr(FlaskForm):
 
 class HabitacionesForm(FlaskForm):
 	numeroHab = TextField('Numero de Habitacion')
-	precio = TextField('Precio')
 	caract = TextField('Caracteristicas')
+	# caract = SelectField(u'Caracteristicas', choices=[('Familiar'), ('Deluxe'), ('Emperatriz')])
+	precio = TextField('Precio')
+	guardar = SubmitField('Guardar')
+	actuali = SubmitField('Actualizar')
+
+class ReservasForm(FlaskForm):
+	documento = TextField('Numero documento')
+	habitacion = TextField('Numero habitacion')
+	pago = TextField('Pago')
+	fechaIn = TextField('Fecha entrada')
+	fechaOut = TextField('Fecha salida')
 	guardar = SubmitField('Guardar')
 	actuali = SubmitField('Actualizar')
 
 # 	class otro(FlaskForm):
 # 	fechaIn = DateField('Fecha de Entrada')
 # 	fechaOut = DateField('Fecha de Salida')
-# 	tipoHab = SelectField(u'Tipo de Habitacion', choices=[('Familiar'), ('Deluxe'), ('Emperatriz')])
 # 	numeroHab = TextField('Numero Habitacion')
 # 	precioHab = TextField('Precio Habitacion')
 # 	reserva = SubmitField('Ingresar')
