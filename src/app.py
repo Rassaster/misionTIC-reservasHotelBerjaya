@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash, redirect, session
 from flask.globals import session
-from formularios import Login, Registro, NuevoUsr, HabitacionesForm, ReservasForm
+from formularios import Login, Registro, NuevoUsr, HabitacionesForm, ReservasForm, ComentariosForm
 from utils import pass_valido
 from markupsafe import escape
 import os
@@ -240,7 +240,8 @@ def adminComentarios():
 
 @app.route('/registroComentarios/')
 def registroComentarios():
-	return render_template('registroComentarios.html')
+	frm = ComentariosForm()
+	return render_template('registroComentarios.html', form = frm, titulo = 'Comentarios')
 
 @app.route('/comentarios/')
 def comentarios():

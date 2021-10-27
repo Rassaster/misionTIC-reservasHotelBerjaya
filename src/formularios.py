@@ -37,10 +37,9 @@ class ReservasForm(FlaskForm):
 	fechaOut = TextField('Fecha salida')
 	guardar = SubmitField('Guardar')
 
-# 	class otro(FlaskForm):
-# 	fechaIn = DateField('Fecha de Entrada')
-# 	fechaOut = DateField('Fecha de Salida')
-# 	numeroHab = TextField('Numero Habitacion')
-# 	precioHab = TextField('Precio Habitacion')
-# 	reserva = SubmitField('Ingresar')
-	# rol = TextField('Documento')
+class ComentariosForm(FlaskForm):
+	documento = TextField('Numero documento')
+	habitacion = TextField('Numero habitacion')
+	calificacion = TextField('Calificacion')
+	comentario = TextField('Comentario')
+	guardar = SubmitField('Guardar')
