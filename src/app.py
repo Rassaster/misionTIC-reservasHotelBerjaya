@@ -122,9 +122,9 @@ def registro():
 
 @app.route('/habitaciones/')
 def habitaciones():
-    habFam = seleccion(f"SELECT COUNT(comen) FROM fullTable WHERE caract = 'familiar' AND estado = 'disponible'")
-    habDel = seleccion(f"SELECT COUNT(comen) FROM fullTable WHERE caract = 'deluxe' AND estado = 'disponible'")
-    habPen = seleccion(f"SELECT COUNT(comen) FROM fullTable WHERE caract = 'penthouse' AND estado = 'disponible'")
+    habFam = seleccion(f"SELECT COUNT(comentarios) FROM registros WHERE habitacion_id = '1' AND estado = 'disponible'")
+    habDel = seleccion(f"SELECT COUNT(comentarios) FROM registros WHERE habitacion_id = '2' AND estado = 'disponible'")
+    habPen = seleccion(f"SELECT COUNT(comentarios) FROM registros WHERE habitacion_id = '3' AND estado = 'disponible'")
 
     familiarOpen = habFam[0][0]
     deluxeOpen = habDel[0][0]
