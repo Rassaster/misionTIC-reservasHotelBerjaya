@@ -200,9 +200,38 @@ def adminHabitaciones():
 
 	return render_template('adminHabitaciones.html', form = frm, titulo = 'Admin')
 
-@app.route('/reservas/')
+@app.route('/reservas/', methods = {'GET', 'POST'})
 def reservas():
 	frm = ReservasForm()
+
+	if request.method == 'POST':
+		try:
+			doc = int(escape(request.form['documento']))
+			hab = escape((request.form['habitacion']).lower())
+			fechaIn = escape((request.form['fechaIn'])) # 2021-10-27
+			fechaOut = escape((request.form['fechaOut']))
+			guardar = request.form.get('guardar', False)
+
+			docSel = seleccion(f"SELECT COUNT(numero_documento) FROM usuarios WHERE numero_documento = {doc}")
+			habSel = seleccion(f"SELECT COUNT(numero_habitacion) FROM habitaciones WHERE numero_habitacion = {hab}")
+
+			if len(str(doc)) != 0 and len(hab) != 0 and 8 < len(str(fechaIn)) < 11 and 8 < len(str(fechaOut)) < 11:
+				if len(docSel) > 0 :
+					if len(habSel) > 0:
+						insReg = "INSERT INTO registros (cliente_id, habitacion_id, fecha_ingreso,fecha_salida) VALUES (?, ?, ?, ?)"
+						resInsReg = accion(insReg, (doc, hab, fechaIn, fechaOut))
+						if resInsReg > 0:
+							flash('Se guardaron los datos de la habitacion con exito')
+					else:
+						flash('La habitacion no existe')
+				else:
+					flash('El documento ingresado no existe')
+			else:
+				flash('Por favor llene todos los campos')
+
+		except ValueError as ve:
+			flash(f'La informacion ingresada no es valida o esta incompleta')
+
 	return render_template('reservas.html', form = frm, titulo = 'Reservas')
 
 @app.route('/adminUsuarios/')

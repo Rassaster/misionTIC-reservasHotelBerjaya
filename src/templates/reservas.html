@@ -13,17 +13,13 @@
 	<div class="container">
 		<form class="registroForm" action="{{ url_for('reservas') }}" method="POST">
 			<div class="row">
-				<div class="form-group col-5">
+				<div class="form-group col-6">
 					<label for="fieldDocumento">{{ form.documento.label }}</label>
 					{{ form.documento(class_="form-control", minlength=1, maxlength=50) }}
 				</div>
-				<div class="form-group col-5">
+				<div class="form-group col-6">
 					<label for="fieldHabitacion">{{ form.habitacion.label }}</label>
 					{{ form.habitacion(class_="form-control", minlength=1, maxlength=50) }}
-				</div>
-				<div class="form-group col-2">
-					<label for="fieldPago">{{ form.pago.label }}</label>
-					{{ form.pago(class_="form-control") }}
 				</div>
 			</div>
 			<div class="row">
@@ -39,7 +35,6 @@
 			<div class="row">
 				<div class="col-4">
 					{{ form.guardar(class_ = "btn btn-primary") }}
-					{{ form.actuali(class_ = "btn btn-primary") }}
 				</div>
 			</div>
 		</form>

@@ -33,11 +33,9 @@ class HabitacionesForm(FlaskForm):
 class ReservasForm(FlaskForm):
 	documento = TextField('Numero documento')
 	habitacion = TextField('Numero habitacion')
-	pago = TextField('Pago')
 	fechaIn = TextField('Fecha entrada')
 	fechaOut = TextField('Fecha salida')
 	guardar = SubmitField('Guardar')
-	actuali = SubmitField('Actualizar')
 
 # 	class otro(FlaskForm):
 # 	fechaIn = DateField('Fecha de Entrada')
