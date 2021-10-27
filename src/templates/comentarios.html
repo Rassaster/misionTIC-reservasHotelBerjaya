@@ -19,23 +19,25 @@
 				<th scope="col-3">Calificacion</th>
 			</tr>
 		</thead>
-		{% for comm in data %}
-			<tbody>
-				<tr>
-					<td>{{ comm[0] }}</td>
-					<td>{{ comm[1] }}</td>
-					<td>{{ comm[2] }}</td>
-					<th scope="row">
-						{% for i in range(comm[3]) %}
-							<i class="bi bi-star-fill" style="font-size: 1rem; color: black;"></i>
-							<!-- <i class="bi bi-star-half" style="font-size: 1rem; color: black;"></i> -->
-						{% endfor %}
-					</th>
-				</tr>
-				<tr>
-				</tr>
-			</tbody>
-		{% endfor %}
+		{% if data != None %}
+			{% for comm in data %}
+				<tbody>
+					<tr>
+						<td>{{ comm[0] }}</td>
+						<td>{{ comm[1] }}</td>
+						<td>{{ comm[2] }}</td>
+						<th scope="row">
+							{% for i in range(comm[3]) %}
+								<i class="bi bi-star-fill" style="font-size: 1rem; color: black;"></i>
+								<!-- <i class="bi bi-star-half" style="font-size: 1rem; color: black;"></i> -->
+							{% endfor %}
+						</th>
+					</tr>
+					<tr>
+					</tr>
+				</tbody>
+			{% endfor %}
+		{% endif %}
 	</table>
 	<!-- <p>{{ qRes }}</p> -->
 </div>

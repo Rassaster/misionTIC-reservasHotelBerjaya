@@ -12,25 +12,15 @@
 {% block content %}
 <div class="body">
 	<div class="container">
-		<div class="row" id="adminBox">
-			<div class="col-3">
-				<a href="{{ url_for('adminHabitaciones') }}">
-					<button class="btn btn-primary">Habitaciones</button>
+		<div class="row" id="comenBox">
+			<div class="col-4">
+				<a href="{{ url_for('registroComentarios') }}">
+					<button class="btn btn-primary">Guardar comentario</button>
 				</a>
 			</div>
-			<div class="col-3">
-				<a href="{{ url_for('reservas') }}">
-					<button class="btn btn-primary">Reservas</button>
-				</a>
-			</div>
-			<div class="col-3">
-				<a href="{{ url_for('adminUsuarios') }}">
-					<button class="btn btn-primary">Usuarios</button>
-				</a>
-			</div>
-			<div class="col-3">
-				<a href="{{ url_for('adminComentarios') }}">
-					<button class="btn btn-primary">Comentarios</button>
+			<div class="col-4">
+				<a href="{{ url_for('comentarios') }}">
+					<button class="btn btn-primary">Ver comentarios</button>
 				</a>
 			</div>
 		</div>

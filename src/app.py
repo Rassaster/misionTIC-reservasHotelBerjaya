@@ -150,10 +150,6 @@ def habitaciones():
 
 	return render_template('habitaciones.html', **contexto)
 
-@app.route('/contactanos/')
-def contactanos():
-	return render_template('contactanos.html', titulo = 'Contactanos')
-
 @app.route('/administrar/', methods=['GET', 'POST'])
 def administrar():
 	return render_template('administrar.html', titulo = 'Admin')
@@ -238,6 +234,14 @@ def reservas():
 def adminUsuarios():
 	return render_template('adminUsuarios.html')
 
+@app.route('/adminComentarios/')
+def adminComentarios():
+	return render_template('adminComentarios.html')
+
+@app.route('/registroComentarios/')
+def registroComentarios():
+	return render_template('registroComentarios.html')
+
 @app.route('/comentarios/')
 def comentarios():
 	habitacion = escape(request.args.get('habitacion', 'error'))
@@ -261,6 +265,10 @@ def comentarios():
 		print(ex)
 
 	return render_template('comentarios.html', **contexto)
+
+@app.route('/contactanos/')
+def contactanos():
+	return render_template('contactanos.html', titulo = 'Contactanos')
 
 @app.route('/gracias/')
 def gracias():
