@@ -4,6 +4,7 @@
 	{{ super() }}
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/forms.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/login.css') }}">
 {% endblock %}
 
 {% block title %}{{ titulo }}{% endblock %}
@@ -12,28 +13,36 @@
 	<div class="body">
 		<div class="container">
 			<form class="registroForm" action="{{ url_for('nuevoUsr') }}" method="POST">
-				<div class="row">
-					<div class="form-group col-4">
-						<label for="fieldTipoHabitacion">{{ form.email.label }}</label>
+				<div class="row fieldRow">
+					<div class="form-group">
+						<label for="fieldEmail">{{ form.email.label }}</label>
 						{{ form.email(class_="form-control", size=100, minlength=1, maxlength=100) }}
 					</div>
-					<div class="form-group col-4">
-						<label for="fieldNumeroHabitacion">{{ form.passn.label }}</label>
+				</div>
+				<div class="row fieldRow">
+					<div class="form-group">
+						<label for="fieldPassn">{{ form.passn.label }}</label>
 						{{ form.passn(class_="form-control", size=40, minlength=5, maxlength=40) }}
 					</div>
-					<div class="form-group col-4">
-						<label for="fieldTipoHabitacion">{{ form.passv.label }}</label>
+				</div>
+				<div class="row fieldRow">
+					<div class="form-group">
+						<label for="fieldPassv">{{ form.passv.label }}</label>
 						{{ form.passv(class_="form-control", size=40, minlength=5, maxlength=40) }}
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-4">
-						{{ form.enviar(class_="btn btn-primary") }}
-					</div>
-					{% for msg in get_flashed_messages() %}
-						<div class='flash'>{{ msg }}</div>
-					{% endfor %}
+				<div class="row btnRow">
+					{{ form.enviar(class_="btn btn-primary") }}
 				</div>
+				{% with messages = get_flashed_messages() %}
+					{% if messages %}
+						<div id="message" class="row">
+						{% for message in messages %}
+							<div class='flash'>{{ message }}</div>
+						{% endfor %}
+						</div>
+					{% endif %}
+				{% endwith %}
 			</form>
 		</div>
 	</div>
