@@ -25,7 +25,7 @@ def login():
 		cla = escape(frm.clave.data.strip())
 
 		try:
-			sql = f"SELECT usuario, contrasena FROM credenciales WHERE usuario = '{ema}'"
+			sql = f"SELECT credenciales.usuario, credenciales.contrasena FROM credenciales INNER JOIN usuarios ON credenciales.usuario = usuarios.usuario WHERE usuarios.activo = 'A'"
 			res = seleccion(sql)
 
 			if len(res) != 0 and check_password_hash(res[0][1], cla):
