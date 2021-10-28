@@ -133,9 +133,10 @@ def registro():
 
 @app.route('/habitaciones/')
 def habitaciones():
-	habFam = seleccion(f"SELECT COUNT(comentarios.comentario) FROM comentarios INNER JOIN habitaciones ON habitaciones.numero_habitacion = comentarios.habitacion WHERE habitaciones.caracteristicas = 'familiar' AND habitaciones.estado = 0")
-	habDel = seleccion(f"SELECT COUNT(comentarios.comentario) FROM comentarios INNER JOIN habitaciones ON habitaciones.numero_habitacion = comentarios.habitacion WHERE habitaciones.caracteristicas = 'deluxe' AND habitaciones.estado = 0")
-	habPen = seleccion(f"SELECT COUNT(comentarios.comentario) FROM comentarios INNER JOIN habitaciones ON habitaciones.numero_habitacion = comentarios.habitacion WHERE habitaciones.caracteristicas = 'penthouse' AND habitaciones.estado = 0")
+	# habFam = seleccion(f"SELECT COUNT(comentarios.comentario) FROM comentarios INNER JOIN habitaciones ON habitaciones.numero_habitacion = comentarios.habitacion WHERE habitaciones.caracteristicas = 'familiar' AND habitaciones.estado = 0")
+	habFam = seleccion(f"SELECT COUNT(numero_habitacion) FROM habitaciones WHERE caracteristicas = 'familiar' AND estado = 0")
+	habDel = seleccion(f"SELECT COUNT(numero_habitacion) FROM habitaciones WHERE caracteristicas = 'deluxe' AND estado = 0")
+	habPen = seleccion(f"SELECT COUNT(numero_habitacion) FROM habitaciones WHERE caracteristicas = 'penthouse' AND estado = 0")
 
 	familiarOpen = habFam[0][0]
 	deluxeOpen = habDel[0][0]
