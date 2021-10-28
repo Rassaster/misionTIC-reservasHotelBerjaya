@@ -296,7 +296,7 @@ def adminUsuarios():
 	# #obtener el valor del boton y luego eliminar o actualizar
 	# if request.method == 'POST':
 	try:
-		res = seleccion(f"SELECT nombre, apellido, usuario, rol_id, _id FROM usuarios")
+		res = seleccion(f"SELECT nombre, apellido, usuario, rol_id, _id FROM usuarios WHERE activo='A'")
 		if len(res) == 0:
 			dat = None
 			print('No existen registros')
