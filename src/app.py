@@ -133,9 +133,9 @@ def registro():
 
 @app.route('/habitaciones/')
 def habitaciones():
-	habFam = seleccion(f"SELECT COUNT(comen) FROM fullTable WHERE caract = 'familiar' AND estado = 'disponible'")
-	habDel = seleccion(f"SELECT COUNT(comen) FROM fullTable WHERE caract = 'deluxe' AND estado = 'disponible'")
-	habPen = seleccion(f"SELECT COUNT(comen) FROM fullTable WHERE caract = 'penthouse' AND estado = 'disponible'")
+	habFam = seleccion(f"SELECT COUNT(comentarios.comentario) FROM comentarios INNER JOIN habitaciones ON habitaciones.numero_habitacion = comentarios.habitacion WHERE habitaciones.caracteristicas = 'familiar' AND habitaciones.estado = 0")
+	habDel = seleccion(f"SELECT COUNT(comentarios.comentario) FROM comentarios INNER JOIN habitaciones ON habitaciones.numero_habitacion = comentarios.habitacion WHERE habitaciones.caracteristicas = 'deluxe' AND habitaciones.estado = 0")
+	habPen = seleccion(f"SELECT COUNT(comentarios.comentario) FROM comentarios INNER JOIN habitaciones ON habitaciones.numero_habitacion = comentarios.habitacion WHERE habitaciones.caracteristicas = 'penthouse' AND habitaciones.estado = 0")
 
 	familiarOpen = habFam[0][0]
 	deluxeOpen = habDel[0][0]
@@ -273,7 +273,6 @@ def registroComentarios():
 
 @app.route('/comentarios/')
 def comentarios():
-
 	try:
 		sql = f"SELECT usuarios.nombre, usuarios.apellido, comentarios.comentario, comentarios.calificacion FROM comentarios INNER JOIN usuarios ON comentarios.identificacion = usuarios.numero_documento"
 		res = seleccion(sql)
