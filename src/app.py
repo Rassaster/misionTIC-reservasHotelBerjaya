@@ -296,7 +296,7 @@ def adminUsuarios():
 	# #obtener el valor del boton y luego eliminar o actualizar
 	# if request.method == 'POST':
 		try:
-			res = seleccion(f"SELECT nombre, apellido, usuario, rol_id, _id FROM usuarios")
+			res = seleccion(f"SELECT nombre, apellido, usuario, rol_id, _id FROM usuarios WHERE activo='A'")
 			if len(res) == 0:
 				dat = None
 				print('No existen registros')
@@ -316,8 +316,15 @@ def adminUsuarios():
 @app.route('/deleteUsr/<string:usr>')
 def delete_usr(usr):
 	try:
-		sql = f"DELETE INTO usuarios WHERE usuario=?"
-		res = accion(sql,(usr))
+		sql = f"SELECT activo FROM usuarios WHERE usuario = '{usr}'"
+		oldState = seleccion(sql)
+		if oldState[0][0] == 'I':
+			newState = 'A'
+		else:
+			newState = 'A'
+
+		sql = f"UPDATE usuarios SET activo=? WHERE usuario=?"
+		res = accion(sql,(newState, usr))
 	except Exception as ex:
 		print(ex)
 	return redirect('/adminUsuarios/')
