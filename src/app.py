@@ -235,18 +235,16 @@ def reservas():
 @app.route('/adminUsuarios/')
 def adminUsuarios():
 	try:
-		sql = f"SELECT usuarios.nombre, usuarios.apellido, usuarios.usuario, usuarios.rol_id FROM usuarios"
-		res = seleccion(sql)
+		res = seleccion(f"SELECT usuarios.nombre, usuarios.apellido, usuarios.usuario, usuarios.rol_id FROM usuarios")
 		if len(res) == 0:
 			dat = None
-			msg = 'No existen registros'
+			print('No existen registros')
 		else:
 			dat = res
-			msg = 'Se muestran los datos'
+			print('Se muestran los datos')
 		
 		contexto = {
 			'data' : dat,
-			'qRes' : msg,
 			'titulo' : 'Usuarios'
 		}
 	except Exception as ex:

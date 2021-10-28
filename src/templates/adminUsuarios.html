@@ -13,36 +13,39 @@
 	<table class="table table-borderless">
 		<thead>
 			<tr>
-				<th scope="col-3">Nombres</th>
-				<th scope="col-3">Apellidos</th>
-				<th scope="col-3">Email</th>
-                <th scope="col-3">Rol</th>
-				<th scope="col-3"></th>
-                <th scope="col-3"></th>
+				<th scope="col-2">Nombres</th>
+				<th scope="col-2">Apellidos</th>
+				<th scope="col-2">Email</th>
+				<th scope="col-2">Rol</th>
+				<th scope="col-2"></th>
+				<th scope="col-2"></th>
 			</tr>
 		</thead>
 		{% if data != None %}
-			{% for usr in data %}
-				<tbody>
+			<tbody>
+				{% for usr in data %}
 					<tr>
 						<td>{{ usr[0] }}</td>
 						<td>{{ usr[1] }}</td>
 						<td>{{ usr[2] }}</td>
-                        <td>{{ usr[3] }}</td>
-                        <td>
-                            <button class="btn btn-primary">Eliminar</button>
-                        </td>
-                        <td>
-                            <button class="btn btn-primary">Admin/Cliente</button>
-                        </td>
+						<td>{{ usr[3] }}</td>
+						<td>
+							<a href="{{ url_for('adminUsuarios') }}">
+								<button class="btn btn-primary">Eliminar</button>
+							</a>
+						</td>
+						<td>
+							<a href="{{ url_for('adminUsuarios') }}">
+								<button class="btn btn-primary">Admin/Cliente</button>
+							</a>
+						</td>
 					</tr>
 					<tr>
 					</tr>
-				</tbody>
-			{% endfor %}
+				{% endfor %}
+			</tbody>
 		{% endif %}
 	</table>
-	<!-- <p>{{ qRes }}</p> -->
 </div>
 {% endblock %}
 
