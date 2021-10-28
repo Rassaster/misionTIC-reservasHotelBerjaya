@@ -291,10 +291,10 @@ def reservas():
 
 @app.route('/adminUsuarios/', methods=['GET', 'POST'])
 def adminUsuarios():
-	guardar = request.form.get('guardar', False)
-	actuali = request.form.get('actuali', False)
-	#obtener el valor del boton y luego eliminar o actualizar
-	if request.method == 'POST':
+	# guardar = request.form.get('guardar', False)
+	# actuali = request.form.get('actuali', False)
+	# #obtener el valor del boton y luego eliminar o actualizar
+	# if request.method == 'POST':
 		try:
 			res = seleccion(f"SELECT nombre, apellido, usuario, rol_id, _id FROM usuarios")
 			if len(res) == 0:
@@ -311,7 +311,7 @@ def adminUsuarios():
 		except Exception as ex:
 			print(ex)
 
-	return render_template('adminUsuarios.html', **contexto)
+		return render_template('adminUsuarios.html', **contexto)
 
 @app.route('/deleteUsr/<string:usr>')
 def delete_usr(usr):
