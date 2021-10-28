@@ -295,41 +295,29 @@ def adminUsuarios():
 	# actuali = request.form.get('actuali', False)
 	# #obtener el valor del boton y luego eliminar o actualizar
 	# if request.method == 'POST':
-		try:
-			res = seleccion(f"SELECT nombre, apellido, usuario, rol_id, _id FROM usuarios WHERE activo='A'")
-			if len(res) == 0:
-				dat = None
-				print('No existen registros')
-			else:
-				dat = res
-				print('Se muestran los datos')
-			
-			contexto = {
-				'data' : dat,
-				'titulo' : 'Usuarios'
-			}
-		except Exception as ex:
-			print(ex)
+	try:
+		res = seleccion(f"SELECT nombre, apellido, usuario, rol_id, _id FROM usuarios WHERE activo='A'")
+		if len(res) == 0:
+			dat = None
+			print('No existen registros')
+		else:
+			dat = res
+			print('Se muestran los datos')
+		
+		contexto = {
+			'data' : dat,
+			'titulo' : 'Usuarios'
+		}
+	except Exception as ex:
+		print(ex)
 
 	return render_template('adminUsuarios.html', **contexto)
 
 @app.route('/deleteUsr/<string:usr>')
 def delete_usr(usr):
 	try:
-<<<<<<< HEAD
-		sql = f"SELECT activo FROM usuarios WHERE usuario = '{usr}'"
-		oldState = seleccion(sql)
-		if oldState[0][0] == 'I':
-			newState = 'A'
-		else:
-			newState = 'A'
-
-		sql = f"UPDATE usuarios SET activo=? WHERE usuario=?"
-		res = accion(sql,(newState, usr))
-=======
 		sql = f"UPDATE usuarios SET activo=? WHERE usuario=?"
 		res = accion(sql,('I', usr))
->>>>>>> e0dd8d44a45487f98ce353e0e042bcd941c21fc3
 	except Exception as ex:
 		print(ex)
 	return redirect('/adminUsuarios/')
