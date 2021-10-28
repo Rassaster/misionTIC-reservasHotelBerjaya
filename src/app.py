@@ -235,7 +235,7 @@ def reservas():
 @app.route('/adminUsuarios/')
 def adminUsuarios():
 	try:
-		sql = f"SELECT usuarios.nombre, usuarios.apellido, usuarios.usuario FROM usuarios"
+		sql = f"SELECT usuarios.nombre, usuarios.apellido, usuarios.usuario, usuarios.rol_id FROM usuarios"
 		res = seleccion(sql)
 		if len(res) == 0:
 			dat = None

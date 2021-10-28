@@ -16,7 +16,9 @@
 				<th scope="col-3">Nombres</th>
 				<th scope="col-3">Apellidos</th>
 				<th scope="col-3">Email</th>
-				<!-- <th scope="col-3">Calificacion</th> -->
+                <th scope="col-3">Rol</th>
+				<th scope="col-3"></th>
+                <th scope="col-3"></th>
 			</tr>
 		</thead>
 		{% if data != None %}
@@ -26,6 +28,13 @@
 						<td>{{ comm[0] }}</td>
 						<td>{{ comm[1] }}</td>
 						<td>{{ comm[2] }}</td>
+                        <td>{{ comm[3] }}</td>
+                        <td>
+                            <button class="btn btn-primary">Eliminar</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary">Admin/Cliente</button>
+                        </td>
 					</tr>
 					<tr>
 					</tr>
