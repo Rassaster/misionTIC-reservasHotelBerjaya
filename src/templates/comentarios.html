@@ -13,10 +13,12 @@
 	<table class="table table-borderless">
 		<thead>
 			<tr>
-				<th scope="col-3">Nombres</th>
-				<th scope="col-3">Apellidos</th>
-				<th scope="col-3">Comentario</th>
-				<th scope="col-3">Calificacion</th>
+				<th scope="col-2">Nombres</th>
+				<th scope="col-2">Apellidos</th>
+				<th scope="col-1">Habitacion</th>
+				<th scope="col-2">Tipo hab.</th>
+				<th scope="col-4">Comentario</th>
+				<th scope="col-1">Calificacion</th>
 			</tr>
 		</thead>
 		{% if data != None %}
@@ -25,11 +27,12 @@
 					<tr>
 						<td>{{ comm[0] }}</td>
 						<td>{{ comm[1] }}</td>
+						<td>{{ comm[4] }}</td>
+						<td>{{ comm[5] }}</td>
 						<td>{{ comm[2] }}</td>
 						<th scope="row">
 							{% for i in range(comm[3]) %}
 								<i class="bi bi-star-fill" style="font-size: 1rem; color: black;"></i>
-								<!-- <i class="bi bi-star-half" style="font-size: 1rem; color: black;"></i> -->
 							{% endfor %}
 						</th>
 					</tr>
@@ -39,7 +42,6 @@
 			{% endfor %}
 		{% endif %}
 	</table>
-	<!-- <p>{{ qRes }}</p> -->
 </div>
 {% endblock %}
 
