@@ -314,11 +314,19 @@ def registroComentarios():
 			if len(str(doc)) != 0 and len(str(hab)) != 0 and (0 < cal < 6) and len(com) != 0:
 				if docSel[0][0] > 0 and habSel[0][0] > 0:
 					insCom = "INSERT INTO comentarios (identificacion, habitacion, comentario, calificacion) VALUES (?, ?, ?, ?)"
+					
 					resInsCom = accion(insCom, (doc, hab, com, cal))
 					if resInsCom > 0:
 						flash('Se guardo su comentario')
 					else:
 						flash('No se pudieron guardar los datos')
+
+					resUpdReg = accion("UPDATE habitaciones SET estado = ? WHERE numero_habitacion = ?", (0, hab))
+					if resUpdReg > 0:
+						print('Estado de la habitacion actualizado con exito')
+					else:
+						print('No se pudo actualizar el estado de la habitacion')
+
 				else:
 					flash('Documento o habitacion no existen en los registros')
 			else:
@@ -334,7 +342,10 @@ def comentarios():
 	habitacion = escape(request.args.get('habitacion', 'error'))
 
 	try:
-		sql = f"SELECT usuarios.nombre, usuarios.apellido, comentarios.comentario, comentarios.calificacion FROM comentarios INNER JOIN usuarios ON comentarios.identificacion = usuarios.numero_documento INNER JOIN habitaciones ON habitaciones.numero_habitacion = comentarios.habitacion WHERE habitaciones.caracteristicas = '{habitacion}'"
+		if habitacion == 'error':
+			sql = f"SELECT usuarios.nombre, usuarios.apellido, comentarios.comentario, comentarios.calificacion FROM comentarios INNER JOIN usuarios ON comentarios.identificacion = usuarios.numero_documento INNER JOIN habitaciones ON habitaciones.numero_habitacion = comentarios.habitacion"
+		else:
+			sql = f"SELECT usuarios.nombre, usuarios.apellido, comentarios.comentario, comentarios.calificacion FROM comentarios INNER JOIN usuarios ON comentarios.identificacion = usuarios.numero_documento INNER JOIN habitaciones ON habitaciones.numero_habitacion = comentarios.habitacion WHERE habitaciones.caracteristicas = '{habitacion}'"
 		res = seleccion(sql)
 		if len(res) == 0:
 			dat = None
