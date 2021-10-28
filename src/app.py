@@ -149,7 +149,7 @@ def habitaciones():
 
 @app.route('/reservarHabitacion/')
 def reservarHabitacion():
-	frm = Registro()
+	frm = ReservasForm()
 	return render_template('reservarHabitacion.html', form = frm, titulo = 'Reservar habitacion')
 
 @app.route('/administrar/', methods=['GET', 'POST'])
