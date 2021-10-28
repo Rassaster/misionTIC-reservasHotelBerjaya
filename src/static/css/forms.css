@@ -38,3 +38,7 @@
   color: white;
   padding: 10px;
 }
+
+th, tr, td {
+	color: black;
+}
