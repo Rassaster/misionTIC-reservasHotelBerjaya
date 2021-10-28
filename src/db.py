@@ -1,5 +1,5 @@
 import sqlite3
-DB_URL = 'bd/test2.db'
+DB_URL = 'bd/berjaya2.db'
 
 def accion(sql, data) -> int:
 	""" Se encarga de ejecutar una consulta de accion (INSERT, DELETE, UPDATE) """
@@ -10,6 +10,7 @@ def accion(sql, data) -> int:
 			if sal != 0:
 				con.commit()
 	except Exception as ex:
+		print(f'ExceptionAccion: {ex}')
 		sal = 0
 	return sal
 
@@ -20,5 +21,6 @@ def seleccion(query) -> list:
 			cur = con.cursor()
 			sal = cur.execute(query).fetchall()
 	except Exception as ex:
+		print(f'ExceptionSeleccion: {ex}')
 		sal = []
 	return sal

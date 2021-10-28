@@ -12,38 +12,39 @@
 {% block content %}
 <div class="body">
 	<div class="container">
-		<form class="registroForm" action="{{ url_for('nuevoUsr') }}" method="POST">
+		<form class="registroForm" action="{{ url_for('adminHabitaciones') }}" method="POST">
 			<div class="row fieldRow">
 				<div class="form-group">
-					<label for="fieldEmail">{{ form.email.label }}</label>
-					{{ form.email(class_="form-control", size=100, minlength=1, maxlength=100) }}
+					<label for="fieldNombre">{{ form.numeroHab.label }}</label>
+					{{ form.numeroHab(class_="form-control", placeholder="000") }}
 				</div>
 			</div>
 			<div class="row fieldRow">
 				<div class="form-group">
-					<label for="fieldPassn">{{ form.passn.label }}</label>
-					{{ form.passn(class_="form-control", size=40, minlength=5, maxlength=40) }}
+					<label for="fieldTipoDocumento">{{ form.caract.label }}</label>
+					{{ form.caract(class_="form-control", placeholder="habitacion") }}
 				</div>
 			</div>
 			<div class="row fieldRow">
 				<div class="form-group">
-					<label for="fieldPassv">{{ form.passv.label }}</label>
-					{{ form.passv(class_="form-control", size=40, minlength=5, maxlength=40) }}
+					<label for="fieldTipoDocumento">{{ form.precio.label }}</label>
+					{{ form.precio(class_="form-control", placeholder="$$$") }}
 				</div>
 			</div>
 			<div class="row btnRow">
-				{{ form.enviar(class_="btn btn-primary") }}
+				{{ form.guardar(class_="btn btn-primary") }}
+				{{ form.actuali(class_="btn btn-primary") }}
 			</div>
-			{% with messages = get_flashed_messages() %}
-				{% if messages %}
-					<div id="message" class="row">
-					{% for message in messages %}
-						<div class='flash'>{{ message }}</div>
-					{% endfor %}
-					</div>
-				{% endif %}
-			{% endwith %}
 		</form>
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				<div id="message" class="row">
+				{% for message in messages %}
+					<div class='flash'>{{ message }}</div>
+				{% endfor %}
+				</div>
+			{% endif %}
+		{% endwith %}
 	</div>
 </div>
 {% endblock %}

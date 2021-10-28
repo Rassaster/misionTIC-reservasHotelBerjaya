@@ -9,19 +9,37 @@ class Login(FlaskForm):
 	logIn = SubmitField('Ingresar')
 
 class Registro(FlaskForm):    
-	nombre = TextField('Nombre ')
-	apellido = TextField('Apellido ')
+	nombre = TextField('Nombre')
+	apellido = TextField('Apellido')
 	tipoDoc = SelectField(u'Tipo de documento', choices=[('Cedula'), ('Pasaporte'), ('Cedula de extranjeria')])
-	documento = TextField('Documento ')
-	fechaIn = DateField('Fecha de Entrada ')
-	fechaOut = DateField('Fecha de Salida ')
-	tipoHab = SelectField(u'Tipo de Habitacion', choices=[('Familiar'), ('Deluxe'), ('Emperatriz')])
-	numeroHab = TextField('Numero Habitacion ')
-	precioHab = TextField('Precio Habitacion ')
-	reserva = SubmitField('Ingresar')
+	documento = TextField('Documento')
+	guardar = SubmitField('Guardar')
+	actuali = SubmitField('Actualizar')
 
 class NuevoUsr(FlaskForm):    
-	email = EmailField('E-Mail *', validators = [InputRequired(message='El email es requerido')])
-	passn = PasswordField('Contraseña *', validators = [InputRequired(message='La clave es requerida')])
-	passv = PasswordField('Verifique *', validators = [InputRequired(message='La verificación de clave es requerida'), EqualTo(passn,'La nueva clave y su verificación no corresponden')])
+	email = EmailField('E-Mail', validators = [InputRequired(message='El email es requerido')])
+	passn = PasswordField('Contraseña', validators = [InputRequired(message='La clave es requerida')])
+	passv = PasswordField('Confirmar Contraseña', validators = [InputRequired(message='La verificación de clave es requerida'), EqualTo(passn,'La nueva clave y su verificación no corresponden')])
 	enviar = SubmitField('Ingresar')
+
+class HabitacionesForm(FlaskForm):
+	numeroHab = TextField('Numero de Habitacion')
+	caract = TextField('Caracteristicas')
+	# caract = SelectField(u'Caracteristicas', choices=[('Familiar'), ('Deluxe'), ('Emperatriz')])
+	precio = TextField('Precio')
+	guardar = SubmitField('Guardar')
+	actuali = SubmitField('Actualizar')
+
+class ReservasForm(FlaskForm):
+	documento = TextField('Numero documento')
+	habitacion = TextField('Numero habitacion')
+	fechaIn = TextField('Fecha entrada')
+	fechaOut = TextField('Fecha salida')
+	guardar = SubmitField('Guardar')
+
+class ComentariosForm(FlaskForm):
+	documento = TextField('Numero documento')
+	habitacion = TextField('Numero habitacion')
+	calificacion = TextField('Calificacion')
+	comentario = TextField('Comentario')
+	guardar = SubmitField('Guardar')

@@ -29,6 +29,10 @@
   color: black;
 }
 
+.flash {
+  text-align: center;
+}
+
 #matchForm {
 	display: flex;
 	flex-direction: column;
@@ -47,4 +51,20 @@
 
 #message {
 	margin-top: 20px;
+}
+
+#adminBox {
+	margin: 20px 0px;
+}
+
+#comenBox {
+	margin: 20px 0px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	text-align: center;
+}
+
+#adminBox > a {
+	text-decoration: none;
 }

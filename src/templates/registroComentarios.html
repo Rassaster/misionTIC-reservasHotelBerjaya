@@ -11,31 +11,30 @@
 {% block content %}
 <div class="body">
 	<div class="container">
-		<form class="registroForm" action="{{ url_for('registro') }}" method="POST">
+		<form class="registroForm" action="{{ url_for('registroComentarios') }}" method="POST">
 			<div class="row">
-				<div class="form-group col-6">
-					<label for="fieldNombre">{{ form.nombre.label }}</label>
-					{{ form.nombre(class_="form-control", minlength=1, maxlength=50) }}
+				<div class="form-group col-5">
+					<label for="fieldDocumento">{{ form.documento.label }}</label>
+					{{ form.documento(class_="form-control", minlength=1, maxlength=50) }}
 				</div>
-				<div class="form-group col-6">
-					<label for="fieldApellido">{{ form.apellido.label }}</label>
-					{{ form.apellido(class_="form-control", minlength=1, maxlength=50) }}
+				<div class="form-group col-5">
+					<label for="fieldHabitacion">{{ form.habitacion.label }}</label>
+					{{ form.habitacion(class_="form-control", minlength=1, maxlength=50) }}
+				</div>
+				<div class="form-group col-2">
+					<label for="fieldCalificacion">{{ form.calificacion.label }}</label>
+					{{ form.calificacion(class_="form-control", placeholder="1-5") }}
 				</div>
 			</div>
 			<div class="row">
-				<div class="form-group col-6">
-					<label for="fieldTipoDocumento">{{ form.tipoDoc.label }}</label>
-					{{ form.tipoDoc(class_="form-control") }}
-				</div>
-				<div class="form-group col-6">
-					<label for="fieldTipoDocumento">{{ form.documento.label }}</label>
-					{{ form.documento(class_="form-control", minlength=1, maxlength=20) }}
+				<div class="form-group col-12">
+					<label for="fieldComentario">{{ form.comentario.label }}</label>
+					{{ form.comentario(class_="form-control") }}
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-4">
 					{{ form.guardar(class_ = "btn btn-primary") }}
-					{{ form.actuali(class_ = "btn btn-primary") }}
 				</div>
 			</div>
 		</form>
