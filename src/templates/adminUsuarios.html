@@ -30,10 +30,14 @@
 						<td>{{ usr[2] }}</td>
                         <td>{{ usr[3] }}</td>
                         <td>
-                            <button class="btn btn-primary">Eliminar</button>
+                            <a href="/deleteUsr/{{ usr[2] }}">
+                                <button class="btn btn-primary">Eliminar</button>
+                            </a>
                         </td>
                         <td>
-                            <button class="btn btn-primary">Admin/Cliente</button>
+                            <a href="/editUsr/{{ usr[2] }}">
+                                <button class="btn btn-primary">Admin/Cliente</button>
+                            </a>
                         </td>
 					</tr>
 					<tr>

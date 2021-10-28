@@ -254,6 +254,31 @@ def adminUsuarios():
 
 	return render_template('adminUsuarios.html', **contexto)
 
+@app.route('/deleteUsr/<string:usr>')
+def delete_usr(usr):
+	try:
+		sql = f"DELETE INTO usuarios WHERE usuario=?"
+		res = accion(sql,(usr))
+	except Exception as ex:
+		print(ex)
+	return redirect('/adminUsuarios/')
+
+@app.route('/editUsr/<string:usr>')
+def edit_usr(usr):
+	try:
+		sql = f"SELECT rol_id FROM usuarios WHERE usuario = '{usr}'"
+		oldRol = seleccion(sql)
+		if oldRol[0][0] == 'cliente':
+			newRol = 'admin'
+		else:
+			newRol = 'cliente'
+
+		sql = f"UPDATE usuarios SET rol_id=? WHERE usuario=?"
+		res = accion(sql,(newRol, usr))
+	except Exception as ex:
+		print(ex)
+	return redirect('/adminUsuarios/')
+
 @app.route('/adminComentarios/')
 def adminComentarios():
 	return render_template('adminComentarios.html')
