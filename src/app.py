@@ -289,23 +289,27 @@ def reservas():
 
 	return render_template('reservas.html', form = frm, titulo = 'Reservas')
 
-@app.route('/adminUsuarios/')
+@app.route('/adminUsuarios/', methods=['GET', 'POST'])
 def adminUsuarios():
-	try:
-		res = seleccion(f"SELECT usuarios.nombre, usuarios.apellido, usuarios.usuario, usuarios.rol_id FROM usuarios")
-		if len(res) == 0:
-			dat = None
-			print('No existen registros')
-		else:
-			dat = res
-			print('Se muestran los datos')
-		
-		contexto = {
-			'data' : dat,
-			'titulo' : 'Usuarios'
-		}
-	except Exception as ex:
-		print(ex)
+	guardar = request.form.get('guardar', False)
+	actuali = request.form.get('actuali', False)
+	#obtener el valor del boton y luego eliminar o actualizar
+	if request.method == 'POST':
+		try:
+			res = seleccion(f"SELECT nombre, apellido, usuario, rol_id, _id FROM usuarios")
+			if len(res) == 0:
+				dat = None
+				print('No existen registros')
+			else:
+				dat = res
+				print('Se muestran los datos')
+			
+			contexto = {
+				'data' : dat,
+				'titulo' : 'Usuarios'
+			}
+		except Exception as ex:
+			print(ex)
 
 	return render_template('adminUsuarios.html', **contexto)
 
