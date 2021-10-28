@@ -99,7 +99,7 @@ def registro():
 			if isinstance(nom, str) and isinstance(ape, str) and isinstance(tipoDoc, str) and isinstance(doc, int):
 				numUsr = seleccion(f'SELECT COUNT(usuario) FROM usuarios WHERE usuario = {usr}')
 
-				if numUsr == 0:
+				if numUsr[0][0] == 0:
 					if guardar:
 						sql = f"INSERT INTO usuarios (usuario, nombre, apellido, tipo_documento, numero_documento) VALUES (?, ?, ?, ?, ?)"
 						res = accion(sql, (usr, nom, ape, tipoDoc, doc))
@@ -151,6 +151,18 @@ def habitaciones():
 def reservarHabitacion():
 	frm = ReservasForm()
 	# request.args.get()
+	dat = None
+	try:
+		selHabDis = seleccion("SELECT numero_habitacion, caracteristicas, precio FROM habitaciones WHERE estado = 0")
+		if len(selHabDis) == 0:
+			dat = None
+			print('No existen registros')
+		else:
+			dat = selHabDis
+			print('Se muestran los datos')
+	except Exception as ex:
+		print(ex)
+
 	if request.method == 'POST':
 		try:
 			doc = int(escape(request.form['documento']))
@@ -158,7 +170,43 @@ def reservarHabitacion():
 			fechaIn = escape((request.form['fechaIn']))
 			fechaOut = escape((request.form['fechaOut']))
 
-	return render_template('reservarHabitacion.html', form = frm, titulo = 'Reservar habitacion')
+			docSel = seleccion(f"SELECT COUNT(numero_documento) FROM usuarios WHERE numero_documento = {doc}")
+			habSel = seleccion(f"SELECT COUNT(numero_habitacion) FROM habitaciones WHERE numero_habitacion = {hab}")
+
+			if len(str(doc)) != 0 and len(hab) != 0 and 8 < len(str(fechaIn)) < 11 and 8 < len(str(fechaOut)) < 11:
+				if docSel[0][0] > 0:
+					if habSel[0][0] > 0:
+						insReg = "INSERT INTO registros (cliente_id, habitacion_id, fecha_ingreso, fecha_salida) VALUES (?, ?, ?, ?)"
+						
+						resInsReg = accion(insReg, (doc, hab, fechaIn, fechaOut))
+						if resInsReg > 0:
+							flash('Se guardaron los datos de la habitacion con exito')
+						else:
+							flash('No se pudieron guardar los datos')
+
+						resUpdReg = accion("UPDATE habitaciones SET estado = ? WHERE numero_habitacion = ?", (1, hab))
+						if resUpdReg > 0:
+							print('Estado de la habitacion actualizado con exito')
+						else:
+							print('No se pudo actualizar el estado de la habitacion')
+
+					else:
+						flash('La habitacion no existe')
+				else:
+					flash('El documento ingresado no existe')
+			else:
+				flash('Por favor llene todos los campos')
+
+		except ValueError as ve:
+			flash(f'La informacion ingresada no es valida o esta incompleta')
+
+	contexto = {
+		'data' : dat,
+		'form' : frm,
+		'titulo' : 'Reservar habitacion'
+	}
+
+	return render_template('reservarHabitacion.html', **contexto)
 
 @app.route('/administrar/', methods=['GET', 'POST'])
 def administrar():

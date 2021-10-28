@@ -11,6 +11,7 @@
 {% block content %}
 <div class="body">
 	<div class="container">
+
 		<form class="registroForm" action="{{ url_for('reservarHabitacion') }}" method="POST">
 			<div class="row">
 				<div class="form-group col-6">
@@ -37,6 +38,7 @@
 				</div>
 			</div>
 		</form>
+
 		{% with messages = get_flashed_messages() %}
 			{% if messages %}
 				<div id="message" class="row">
@@ -46,6 +48,31 @@
 				</div>
 			{% endif %}
 		{% endwith %}
+
+		<table class="table table-borderless">
+			<thead>
+				<tr>
+					<th scope="col-3"># Habitacion</th>
+					<th scope="col-3">Tipo habitacion</th>
+					<th scope="col-3">Precio</th>
+					<!-- <th scope="col-3">Calificacion</th> -->
+				</tr>
+			</thead>
+			{% if data != None %}
+				<tbody>
+					{% for comm in data %}
+						<tr>
+							<td>{{ comm[0] }}</td>
+							<td>{{ comm[1] }}</td>
+							<td>{{ comm[2] }}</td>
+							<!-- <th scope="row">
+							</th> -->
+						</tr>
+					{% endfor %}
+				</tbody>
+			{% endif %}
+		</table>
+
 	</div>
 </div>
 {% endblock %}
