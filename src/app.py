@@ -234,7 +234,25 @@ def reservas():
 
 @app.route('/adminUsuarios/')
 def adminUsuarios():
-	return render_template('adminUsuarios.html')
+	try:
+		sql = f"SELECT usuarios.nombre, usuarios.apellido, usuarios.usuario FROM usuarios"
+		res = seleccion(sql)
+		if len(res) == 0:
+			dat = None
+			msg = 'No existen registros'
+		else:
+			dat = res
+			msg = 'Se muestran los datos'
+		
+		contexto = {
+			'data' : dat,
+			'qRes' : msg,
+			'titulo' : 'Usuarios'
+		}
+	except Exception as ex:
+		print(ex)
+
+	return render_template('adminUsuarios.html', **contexto)
 
 @app.route('/adminComentarios/')
 def adminComentarios():
