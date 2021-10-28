@@ -99,7 +99,7 @@ def registro():
 			if isinstance(nom, str) and isinstance(ape, str) and isinstance(tipoDoc, str) and isinstance(doc, int):
 				numUsr = seleccion(f'SELECT COUNT(usuario) FROM usuarios WHERE usuario = {usr}')
 
-				if numUsr[0][0] == 0:
+				if numUsr == 0:
 					if guardar:
 						sql = f"INSERT INTO usuarios (usuario, nombre, apellido, tipo_documento, numero_documento) VALUES (?, ?, ?, ?, ?)"
 						res = accion(sql, (usr, nom, ape, tipoDoc, doc))
