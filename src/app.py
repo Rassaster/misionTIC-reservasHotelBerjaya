@@ -46,7 +46,7 @@ def login():
 def nuevoUsr():
 	frm = NuevoUsr()
 	if request.method == 'POST':
-		email = escape(request.form['email'])
+		email = escape((request.form['email']).lower())
 		clave1 = escape(request.form['passn'])
 		clave2 = escape(request.form['passv'])
 
@@ -89,9 +89,9 @@ def registro():
 
 	if request.method == 'POST':
 		try:
-			nom = str(escape(request.form['nombre']))
-			ape = str(escape(request.form['apellido']))
-			tipoDoc = str(escape(request.form['tipoDoc']))
+			nom = escape((request.form['nombre']).lower())
+			ape = escape((request.form['apellido']).lower())
+			tipoDoc = escape((request.form['tipoDoc']).lower())
 			doc = int(escape(request.form['documento']))
 			guardar = request.form.get('guardar', False)
 			actuali = request.form.get('actuali', False)
@@ -147,9 +147,17 @@ def habitaciones():
 
 	return render_template('habitaciones.html', **contexto)
 
-@app.route('/reservarHabitacion/')
+@app.route('/reservarHabitacion/', methods=['GET', 'POST'])
 def reservarHabitacion():
 	frm = ReservasForm()
+	# request.args.get()
+	if request.method == 'POST':
+		try:
+			doc = int(escape(request.form['documento']))
+			hab = escape((request.form['habitacion']).lower())
+			fechaIn = escape((request.form['fechaIn']))
+			fechaOut = escape((request.form['fechaOut']))
+
 	return render_template('reservarHabitacion.html', form = frm, titulo = 'Reservar habitacion')
 
 @app.route('/administrar/', methods=['GET', 'POST'])
