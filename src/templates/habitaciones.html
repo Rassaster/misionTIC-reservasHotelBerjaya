@@ -21,12 +21,13 @@
 					<img src="{{ url_for('static', filename='assets/hab1.png') }}" class="img-fluid" alt="FotoHab1">
 					<p class="fotHabTit">HABITACIÓN FAMILIAR</p>
 					<div class="botonesFot">
-						<a href="{{ url_for('comentarios', habitacion='familiar') }}">VER COMENTARIOS</a>
+						<a href="{{ url_for('comentarios', habitacion='familiar') }}">
+							<button type="button" class="btn btn-primary">Ver comentarios</button>
+						</a>
 						<p>Habitaciones disponibles: {{ familiarOpen }}</p>
-						<button>Reservar</button>
-						<!-- <a href="{{ url_for('registro') }}">
+						<a href="{{ url_for('reservarHabitacion', reserva='familiar') }}">
 							<button type="button" class="btn btn-primary">Reservar</button>
-						</a> -->
+						</a>
 					</div>
 				</div>
 			</div>
@@ -37,12 +38,13 @@
 					<img src="{{ url_for('static', filename='assets/hab2.png') }}" class="img-fluid" alt="FotoHab1">
 					<p class="fotHabTit">2 AMBIENTES DELUXE</p>
 					<div class="botonesFot">
-						<a href="{{ url_for('comentarios', habitacion='deluxe') }}">VER COMENTARIOS</a>
+						<a href="{{ url_for('comentarios', habitacion='deluxe') }}">
+							<button type="button" class="btn btn-primary">Ver comentarios</button>
+						</a>
 						<p>Habitaciones disponibles: {{ deluxeOpen }}</p>
-						<button>Reservar</button>
-						<!-- <a href="{{ url_for('registro') }}">
+						<a href="{{ url_for('reservarHabitacion', reserva='deluxe') }}">
 							<button type="button" class="btn btn-primary">Reservar</button>
-						</a> -->
+						</a>
 					</div>
 				</div>
 			</div>
@@ -53,12 +55,13 @@
 					<img src="{{ url_for('static', filename='assets/hab3.png') }}" class="img-fluid" alt="FotoHab1">
 					<p class="fotHabTit">PENTHOUSE EMPERATRIZ</p>
 					<div class="botonesFot">
-						<a href="{{ url_for('comentarios', habitacion='penthouse') }}">VER COMENTARIOS</a>
+						<a href="{{ url_for('comentarios', habitacion='penthouse') }}">
+							<button type="button" class="btn btn-primary">Ver comentarios</button>
+						</a>
 						<p>Habitaciones disponibles: {{ penthouseOpen }}</p>
-						<button>Reservar</button>
-						<!-- <a href="{{ url_for('registro') }}">
+						<a href="{{ url_for('reservarHabitacion', reserva='penthouse') }}">
 							<button type="button" class="btn btn-primary">Reservar</button>
-						</a> -->
+						</a>
 					</div>
 				</div>
 			</div>
