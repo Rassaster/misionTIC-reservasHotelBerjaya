@@ -274,9 +274,12 @@ def registroComentarios():
 
 @app.route('/comentarios/')
 def comentarios():
+	habitacion = escape(request.args.get('habitacion', 'error'))
+
 	try:
-		sql = f"SELECT usuarios.nombre, usuarios.apellido, comentarios.comentario, comentarios.calificacion FROM comentarios INNER JOIN usuarios ON comentarios.identificacion = usuarios.numero_documento"
+		sql = f"SELECT usuarios.nombre, usuarios.apellido, comentarios.comentario, comentarios.calificacion FROM comentarios INNER JOIN usuarios ON comentarios.identificacion = usuarios.numero_documento INNER JOIN habitaciones ON habitaciones.numero_habitacion = comentarios.habitacion WHERE habitaciones.caracteristicas = '{habitacion}'"
 		res = seleccion(sql)
+		print(f'\n\nres:{res}\n\n')
 		if len(res) == 0:
 			dat = None
 			msg = 'No existen registros'
