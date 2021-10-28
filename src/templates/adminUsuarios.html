@@ -28,19 +28,17 @@
 						<td>{{ usr[0] }}</td>
 						<td>{{ usr[1] }}</td>
 						<td>{{ usr[2] }}</td>
-                        <td>{{ usr[3] }}</td>
-                        <td>
-                            <a href="/deleteUsr/{{ usr[2] }}">
-                                <button class="btn btn-primary">Eliminar</button>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="/editUsr/{{ usr[2] }}">
-                                <button class="btn btn-primary">Admin/Cliente</button>
-                            </a>
-                        </td>
-					</tr>
-					<tr>
+						<td>{{ usr[3] }}</td>
+						<td>
+							<a href="/deleteUsr/{{ usr[2] }}">
+								<button class="btn btn-primary">Eliminar</button>
+							</a>
+						</td>
+						<td>
+							<a href="/editUsr/{{ usr[2] }}">
+								<button class="btn btn-primary">Admin/Cliente</button>
+							</a>
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>

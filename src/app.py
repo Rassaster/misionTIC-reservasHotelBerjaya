@@ -311,11 +311,12 @@ def adminUsuarios():
 		except Exception as ex:
 			print(ex)
 
-		return render_template('adminUsuarios.html', **contexto)
+	return render_template('adminUsuarios.html', **contexto)
 
 @app.route('/deleteUsr/<string:usr>')
 def delete_usr(usr):
 	try:
+<<<<<<< HEAD
 		sql = f"SELECT activo FROM usuarios WHERE usuario = '{usr}'"
 		oldState = seleccion(sql)
 		if oldState[0][0] == 'I':
@@ -325,6 +326,10 @@ def delete_usr(usr):
 
 		sql = f"UPDATE usuarios SET activo=? WHERE usuario=?"
 		res = accion(sql,(newState, usr))
+=======
+		sql = f"UPDATE usuarios SET activo=? WHERE usuario=?"
+		res = accion(sql,('I', usr))
+>>>>>>> e0dd8d44a45487f98ce353e0e042bcd941c21fc3
 	except Exception as ex:
 		print(ex)
 	return redirect('/adminUsuarios/')
