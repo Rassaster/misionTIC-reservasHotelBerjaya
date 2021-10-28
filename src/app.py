@@ -67,9 +67,7 @@ def nuevoUsr():
 			else:
 				sql = f"INSERT INTO credenciales (usuario, contrasena) VALUES (?, ?)"
 				pwd = generate_password_hash(clave1)
-				print(f'TEST: email: {email}, pwd: {pwd}')
 				res = accion(sql,(email, pwd))
-				print(f'res: {res}')
 
 				if res != 0:
 					flash('INFO: Datos almacenados con exito')
@@ -121,8 +119,6 @@ def registro():
 					else:
 						flash(f'El usuario {usr} ya existe, use actualizar si quiere cambiar la informacion actual')
 
-			# else:
-			# 	print('TYPES NOT MATCH')
 		except ValueError as ve:
 			flash(f'La informacion ingresada no es valida o esta incompleta')
 		except Exception as ex:
@@ -150,6 +146,11 @@ def habitaciones():
 	}
 
 	return render_template('habitaciones.html', **contexto)
+
+@app.route('/reservarHabitacion/')
+def reservarHabitacion():
+	frm = Registro()
+	return render_template('reservarHabitacion.html', form = frm, titulo = 'Reservar habitacion')
 
 @app.route('/administrar/', methods=['GET', 'POST'])
 def administrar():
@@ -279,7 +280,6 @@ def comentarios():
 	try:
 		sql = f"SELECT usuarios.nombre, usuarios.apellido, comentarios.comentario, comentarios.calificacion FROM comentarios INNER JOIN usuarios ON comentarios.identificacion = usuarios.numero_documento INNER JOIN habitaciones ON habitaciones.numero_habitacion = comentarios.habitacion WHERE habitaciones.caracteristicas = '{habitacion}'"
 		res = seleccion(sql)
-		print(f'\n\nres:{res}\n\n')
 		if len(res) == 0:
 			dat = None
 			msg = 'No existen registros'
